@@ -1,0 +1,30 @@
+.landing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 70%;
+}
+
+.recruiter-button {
+    height: 200px;
+    font-size: 30px;
+    width: 300px;
+    position: relative;
+    top: 50%;
+    margin-left: 40%;
+    border-radius: 10px;
+}
+
+.jobseeker-button {
+    font-size: 30px;
+    height: 200px;
+    width: 300px;
+    position: relative;
+    top: 50%;
+    margin-left: 20%;
+    border-radius: 10px;
+}
+
+.landing-question {
+    text-align: center;
+    font-size: 50px;
+}
