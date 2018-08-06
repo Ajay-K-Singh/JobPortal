@@ -1,15 +1,21 @@
 .landing-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 70%;
+    height: 100vh;
+    width: 100vw;
+}
+
+.landing-page {
+    width: 100vw;
+    min-height: 100vh;
+    background-color: aquamarine;
+    position: fixed;
 }
 
 .recruiter-button {
     height: 200px;
     font-size: 30px;
     width: 300px;
-    position: relative;
-    top: 50%;
     margin-left: 40%;
     border-radius: 10px;
 }
@@ -18,8 +24,6 @@
     font-size: 30px;
     height: 200px;
     width: 300px;
-    position: relative;
-    top: 50%;
     margin-left: 20%;
     border-radius: 10px;
 }
