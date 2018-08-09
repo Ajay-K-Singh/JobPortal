@@ -11,9 +11,16 @@ mat-card {
 
 mat-form-field {
     width: 80%;
+    margin: 5px;
 }
 
 mat-card-content {
     text-align: center;
     margin-top: 2rem;
+}
+
+mat-card-footer {
+    height: 5rem;
+    width: 100%;
+    text-align: center;
 }
