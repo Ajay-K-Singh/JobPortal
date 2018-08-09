@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { JobSeekerComponent } from "./job-seeker/job-seeker.component";
 import { RecruiterComponent } from "./recruiter/recruiter.component";
 import { LandingPageComponent } from './landing-page/landing-page.component'
+import { PostJobsComponent } from "./recruiter/post-jobs/post-jobs.component";
+import { RecruiterLayoutComponent } from "./layout/recruiter-layout/recruiter-layout.component";
 
 
 const routes: Routes = [
@@ -15,8 +17,17 @@ const routes: Routes = [
         component: JobSeekerComponent 
     },
     {
-        path: 'recruiters',
-        component: RecruiterComponent 
+        path: 'recruiter',
+        component: RecruiterLayoutComponent,
+        children: [{
+            path: '',
+            component: RecruiterComponent
+        },
+        {
+          path: 'post-job',
+          component: PostJobsComponent
+        }
+      ]
     }
 ];
 @NgModule({

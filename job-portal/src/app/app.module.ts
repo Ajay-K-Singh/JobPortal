@@ -7,13 +7,21 @@ import { MaterialModule } from './material';
 import { JobSeekerComponent } from './job-seeker/job-seeker.component';
 import { RecruiterComponent } from './recruiter/recruiter.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PostJobsComponent } from './recruiter/post-jobs/post-jobs.component';
+import { JobSeekerLayoutComponent } from './layout/job-seeker-layout/job-seeker-layout.component';
+import { RecruiterLayoutComponent } from './layout/recruiter-layout/recruiter-layout.component';
+import { RecruiterHeaderComponent } from './layout/recruiter-header/recruiter-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     JobSeekerComponent,
-    RecruiterComponent
+    RecruiterComponent,
+    PostJobsComponent,
+    JobSeekerLayoutComponent,
+    RecruiterLayoutComponent,
+    RecruiterHeaderComponent
   ],
   imports: [
     BrowserModule,
