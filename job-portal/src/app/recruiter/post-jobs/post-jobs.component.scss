@@ -1,0 +1,19 @@
+mat-card {
+    width: 78%;
+    grid-column-start: 2;
+    grid-column-end: 6;
+}
+
+.post-job-form {
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+}
+
+mat-form-field {
+    width: 80%;
+}
+
+mat-card-content {
+    text-align: center;
+    margin-top: 2rem;
+}
