@@ -14,15 +14,23 @@
 					<input matInput type="text" placeholder="Search By Location">
 				</mat-form-field>
 				<mat-form-field>
-					<input matInput type="text" placeholder="Search By Work Experience">
+					<mat-select placeholder="Search By Work Experience">
+						<mat-option *ngFor="let exp of expList" [value]="exp.value">
+							{{exp.name}}
+						</mat-option>
+					</mat-select>
 				</mat-form-field>
 				<mat-form-field>
-					<input matInput type="text" placeholder="Search By Min Salary">
+					<mat-select placeholder="Search By Min Salary">
+						<mat-option *ngFor="let sal of salaryList" [value]="sal.value">
+							{{sal.name}}
+						</mat-option>
+					</mat-select>
 				</mat-form-field>
 			</form>
 		</mat-card-content>
 		<mat-card-footer>
-				<button type="submit" mat-raised-button color="accent">Search</button>
+			<button type="submit" mat-raised-button color="accent">Search</button>
 		</mat-card-footer>
   </mat-card>
 </div>
