@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { JobPostingService } from './job-posting.service';
+import { PostJob } from './post-job.model';
 
 @Component({
   selector: 'app-recruiter',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recruiter.component.scss']
 })
 export class RecruiterComponent implements OnInit {
-
-  constructor() { }
+  jobPosts: PostJob[] = [];
+  constructor(public jobPostingService: JobPostingService) { }
 
   ngOnInit() {
+    this.jobPostingService.getJobPosts();
   }
 
 }

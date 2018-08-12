@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material';
+import { HttpClientModule } from '@angular/common/http';
 import { JobSeekerComponent } from './job-seeker/job-seeker.component';
 import { RecruiterComponent } from './recruiter/recruiter.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +29,9 @@ import { RecruiterHeaderComponent } from './layout/recruiter-header/recruiter-he
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
