@@ -4,27 +4,33 @@
         <hr>
         <mat-card-content>
             <form (submit)="onAddJob(jobForm)" #jobForm="ngForm">
-                <mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Title Of Job</mat-label>
                     <input matInput type="text" placeholder="Title Of Job" [(ngModel)]="postJob.jobTitle" name="jobTitle" #jobTitle="ngModel" required>
                     <mat-error *ngIf="jobTitle.invalid">Please enter a job title.</mat-error>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Name Of the Company</mat-label>
                     <input matInput type="text" placeholder="Name Of the Company" [(ngModel)]="postJob.nameOfCompany" name="nameOfCompany" #nameOfCompany="ngModel" required>
                     <mat-error *ngIf="nameOfCompany.invalid">Please enter name of company.</mat-error>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Experience Range</mat-label>
                     <input matInput type="text" placeholder="Experience Range" [(ngModel)]="postJob.experienceRange" name="experienceRange" #experienceRange="ngModel" required>
                     <mat-error *ngIf="experienceRange.invalid">Please enter experience range needed.</mat-error>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Location</mat-label>
                     <input matInput type="text" placeholder="Location" [(ngModel)]="postJob.location" name="location" #location="ngModel" required>
                     <mat-error *ngIf="location.invalid">Please enter location of the job.</mat-error>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Key Skills Needed</mat-label>
                     <input matInput type="text" placeholder="Key Skills Needed" [(ngModel)]="postJob.keySkills" name="keySkills" #keySkills="ngModel" required>
                     <mat-error *ngIf="keySkills.invalid">Please enter key skills needed of the job.</mat-error>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Job Description</mat-label>
                     <textarea matInput placeholder="Job Description" rows="6" [(ngModel)]="postJob.jobDescription" name="jobDescription" #jobDescription="ngModel" required></textarea>
                     <mat-error *ngIf="jobDescription.invalid">Please enter a job description.</mat-error>
                 </mat-form-field>

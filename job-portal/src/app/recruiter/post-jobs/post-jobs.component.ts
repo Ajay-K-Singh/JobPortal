@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '../../../../node_modules/@angular/forms';
+import {NgForm} from '@angular/forms';
 import { PostJob } from '../post-job.model';
 import { JobPostingService } from '../job-posting.service';
-
 @Component({
   selector: 'app-post-jobs',
   templateUrl: './post-jobs.component.html',
