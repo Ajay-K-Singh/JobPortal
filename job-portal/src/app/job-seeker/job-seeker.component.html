@@ -3,25 +3,32 @@
 		<mat-card-title>Search Jobs</mat-card-title>
 		<hr>
 		<mat-card-content>
-			<form>
+			<form [formGroup]="jobSearchForm" (ngSubmit)="onSubmit()">
 				<mat-form-field>
-					<input matInput type="text" placeholder="Search By Designation">
+					<input matInput type="text" placeholder="Search By Designation" formControlName="designation">
 				</mat-form-field>
 				<mat-form-field>
-					<input matInput type="text" placeholder="Search By Key Skills">
+					<input matInput type="text" placeholder="Search By Key Skills" formControlName="keySkills">
 				</mat-form-field>
 				<mat-form-field>
-					<input matInput type="text" placeholder="Search By Location">
+					<input matInput type="text" name="location" placeholder="Search By Location"
+					aria-label="Location" [matAutocomplete]="auto"
+					formControlName="location">
+					<mat-autocomplete #auto="matAutocomplete" [displayWith]="location">
+						<mat-option *ngFor="let location of filteredLocations" [value]="location.description">
+							<span>{{location.description}}</span>
+						</mat-option>
+					</mat-autocomplete>
 				</mat-form-field>
 				<mat-form-field>
-					<mat-select placeholder="Search By Work Experience">
-						<mat-option *ngFor="let exp of expList" [value]="exp.value">
+					<mat-select placeholder="Search By Work Experience" formControlName="experience">
+						<mat-option *ngFor="let exp of expList" [value]="exp.value" >
 							{{exp.name}}
 						</mat-option>
 					</mat-select>
 				</mat-form-field>
 				<mat-form-field>
-					<mat-select placeholder="Search By Min Salary">
+					<mat-select placeholder="Search By Min Salary" formControlName="salary">
 						<mat-option *ngFor="let sal of salaryList" [value]="sal.value">
 							{{sal.name}}
 						</mat-option>
