@@ -3,8 +3,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const JobPost = require('./models/job-posting');
 const axios = require('axios');
-
-
 const app = express();
 
 mongoose
