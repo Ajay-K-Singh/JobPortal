@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
+import { GoogleMapsService } from '../utils/googlemaps.service';
+
 
 @Component({
   selector: 'app-job-seeker',
@@ -8,6 +10,8 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./job-seeker.component.scss']
 })
 export class JobSeekerComponent implements OnInit {
+  constructor(private _http: HttpClient, public googleMapsService: GoogleMapsService) {
+  }
   jobSearchForm: FormGroup;
   filteredLocations = null;
   selectedLocation = null;
@@ -50,25 +54,11 @@ export class JobSeekerComponent implements OnInit {
 
   onChangeLocation(location) {
     if (location != '') {
-      this._http.get('https://maps.googleapis.com/maps/api/place/autocomplete/json', {
-        params: {
-          key: 'AIzaSyCfdagGOvrsbRDwoWFAb10JcIuSl3eIP7g',
-          input: location,
-          inputtype: 'textquery'
-        },
-        responseType: "json"
-      }).subscribe(
-        (response: {
-          predictions: ArrayBuffer
-        }) => this.filteredLocations = response.predictions
-      );
+      this.googleMapsService.suggestPlaces(location);
     }
   }
 
   onSubmit() {
     console.log(this.jobSearchForm);
-  }
-
-  constructor(private _http: HttpClient) {
   }
 }

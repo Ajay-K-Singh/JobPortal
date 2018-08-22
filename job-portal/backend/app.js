@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const JobPost = require('./models/job-posting');
+const axios = require('axios');
 
 
 const app = express();
@@ -56,6 +57,12 @@ app.get("/api/job-posts", (req, res) => {
             jobPosts: documents
         });
     });
+})
+
+app.get("/api/google-places", (req, res) => {
+	const key = 'your key';
+	const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${req.body.location}&inputtype=textquery`
+	axios.get(url).then(response => res.send(response.data)).catch(err => console.log(err));
 })
 
 module.exports = app;
