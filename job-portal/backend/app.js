@@ -58,8 +58,8 @@ app.get("/api/job-posts", (req, res) => {
 })
 
 app.get("/api/google-places", (req, res) => {
-	const key = 'your key';
-	const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${key}&input=${req.body.location}&inputtype=textquery`
+    const key = 'AIzaSyA-HA9qMeaypI5YkDBfOJQi_wWFArXjxOg';
+	const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.query.location}&types=(cities)&language=pt_BR&key=${key}`
 	axios.get(url).then(response => res.send(response.data)).catch(err => console.log(err));
 })
 

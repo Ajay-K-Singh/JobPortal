@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GoogleMapsService } from '../utils/googlemaps.service';
-
+import { Places } from '../utils/places.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-job-seeker',
   templateUrl: './job-seeker.component.html',
   styleUrls: ['./job-seeker.component.scss']
 })
-export class JobSeekerComponent implements OnInit {
+export class JobSeekerComponent implements OnInit, OnDestroy {
+  predictions: Places[] = [];
+  private placesPredictions: Subscription;
   constructor(private _http: HttpClient, public googleMapsService: GoogleMapsService) {
   }
   jobSearchForm: FormGroup;
@@ -55,10 +58,18 @@ export class JobSeekerComponent implements OnInit {
   onChangeLocation(location) {
     if (location != '') {
       this.googleMapsService.suggestPlaces(location);
+      this.placesPredictions = this.googleMapsService.getPredictionsUpdateListener().subscribe((predictions: Places[]) => {
+        console.log(predictions);
+        this.predictions = predictions;
+      });
     }
   }
 
   onSubmit() {
     console.log(this.jobSearchForm);
+  }
+
+  ngOnDestroy() {
+    this.placesPredictions.unsubscribe();
   }
 }
