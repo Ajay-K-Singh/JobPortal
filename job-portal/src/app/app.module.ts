@@ -1,38 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LandingPageComponent } from './landing-page/landing-page.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material';
-import { HttpClientModule } from '@angular/common/http';
-import { JobSeekerComponent } from './job-seeker/job-seeker.component';
-import { RecruiterComponent } from './recruiter/recruiter.component';
+import { ComponentsModule } from './components.module';
 import { AppRoutingModule } from './app-routing.module';
-import { PostJobsComponent } from './recruiter/post-jobs/post-jobs.component';
-import { JobSeekerLayoutComponent } from './layout/job-seeker-layout/job-seeker-layout.component';
-import { RecruiterLayoutComponent } from './layout/recruiter-layout/recruiter-layout.component';
-import { RecruiterHeaderComponent } from './layout/recruiter-header/recruiter-header.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LandingPageComponent,
-    JobSeekerComponent,
-    RecruiterComponent,
-    PostJobsComponent,
-    JobSeekerLayoutComponent,
-    RecruiterLayoutComponent,
-    RecruiterHeaderComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule
+    ComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

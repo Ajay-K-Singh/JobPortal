@@ -74,6 +74,13 @@ export class JobSeekerComponent implements OnInit, OnDestroy {
     if ( this.predictionFilled || location == '' ) {
       return;
     }
+    // clearTimeout($scope.timeout); // you any previously set Timeouts
+    // $scope.timeout = setTimeout(function(){ // start a new timeout
+    //     if ($scope.searchString.length >= 2) { // do whatever you need.
+    //         getUsers($scope.searchString);
+    //     }
+    //     clearTimeout($scope.timeout);// clear time out just in case.
+    // },800);
     this.googleMapsService.suggestPlaces(location);
     this.placesPredictions = this.googleMapsService.getPredictionsUpdateListener().subscribe((predictions: Places[]) => {
       console.log(predictions);
