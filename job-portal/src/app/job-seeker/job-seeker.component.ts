@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GoogleMapsService } from '../utils/googlemaps.service';
 import { Places } from '../utils/places.model';
@@ -13,7 +12,8 @@ import { Subscription } from 'rxjs';
 export class JobSeekerComponent implements OnInit, OnDestroy {
   predictions: Places[] = [];
   private placesPredictions: Subscription;
-  constructor(private _http: HttpClient, public googleMapsService: GoogleMapsService) {
+  predictionFilled = false;
+  constructor(public googleMapsService: GoogleMapsService) {
   }
   jobSearchForm: FormGroup;
   filteredLocations = null;
@@ -51,18 +51,34 @@ export class JobSeekerComponent implements OnInit, OnDestroy {
       'salary': new FormControl(null)
     });
     this.jobSearchForm.get('location').valueChanges.subscribe(
-      (value) => this.onChangeLocation(value)
+      (value) => {
+        if (this.predictions.length > 0) {
+          this.predictions.forEach(prediction => { 
+            if (prediction.description === value) {
+              this.predictionFilled = true;
+            }
+          });
+        } else {
+          this.predictionFilled = false;
+        }
+        if (value === "") {
+          this.predictionFilled = false;
+          this.predictions = [];
+        }
+        this.onChangeLocation(value)
+      }
     );
   }
 
   onChangeLocation(location) {
-    if (location != '') {
-      this.googleMapsService.suggestPlaces(location);
-      this.placesPredictions = this.googleMapsService.getPredictionsUpdateListener().subscribe((predictions: Places[]) => {
-        console.log(predictions);
-        this.predictions = predictions;
-      });
+    if ( this.predictionFilled || location == '' ) {
+      return;
     }
+    this.googleMapsService.suggestPlaces(location);
+    this.placesPredictions = this.googleMapsService.getPredictionsUpdateListener().subscribe((predictions: Places[]) => {
+      console.log(predictions);
+      this.predictions = predictions;
+    });
   }
 
   onSubmit() {
