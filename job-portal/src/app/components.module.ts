@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { JobSeekerHeaderComponent } from './layout/job-seeker-header/job-seeker-header.component';
+import { JobSearchFormComponent } from './job-seeker/job-search-form/job-search-form.component';
 
 @NgModule({
   imports: [
@@ -32,7 +34,9 @@ import { AppRoutingModule } from './app-routing.module';
     JobSeekerLayoutComponent,
     RecruiterLayoutComponent,
     RecruiterHeaderComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    JobSeekerHeaderComponent,
+    JobSearchFormComponent
   ],
   exports: [
     LandingPageComponent,
@@ -42,7 +46,9 @@ import { AppRoutingModule } from './app-routing.module';
     JobSeekerLayoutComponent,
     RecruiterLayoutComponent,
     RecruiterHeaderComponent,
-    AutocompleteComponent
+    AutocompleteComponent,
+    JobSeekerHeaderComponent,
+    JobSearchFormComponent
   ]
 })
 export class ComponentsModule { }

@@ -9,7 +9,8 @@ mat-card {
     grid-template-columns: 1fr 5fr 1fr;
 }
 
-mat-form-field {
+mat-form-field,
+app-autocomplete {
     width: 80%;
 }
 

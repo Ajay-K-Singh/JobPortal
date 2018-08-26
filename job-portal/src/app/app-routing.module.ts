@@ -5,6 +5,8 @@ import { RecruiterComponent } from "./recruiter/recruiter.component";
 import { LandingPageComponent } from './landing-page/landing-page.component'
 import { PostJobsComponent } from "./recruiter/post-jobs/post-jobs.component";
 import { RecruiterLayoutComponent } from "./layout/recruiter-layout/recruiter-layout.component";
+import { JobSeekerLayoutComponent } from './layout/job-seeker-layout/job-seeker-layout.component';
+import { JobSearchFormComponent } from './job-seeker/job-search-form/job-search-form.component';
 
 
 const routes: Routes = [
@@ -14,7 +16,16 @@ const routes: Routes = [
     },
     {
         path: 'jobs',
-        component: JobSeekerComponent 
+        component: JobSeekerLayoutComponent,
+        children: [{
+            path: '',
+            component: JobSeekerComponent
+        },
+        {
+            path: 'search-job',
+            component: JobSearchFormComponent
+          }
+        ]
     },
     {
         path: 'recruiter',

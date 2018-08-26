@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-job-seeker',
-  templateUrl: './job-seeker.component.html',
-  styleUrls: ['./job-seeker.component.scss']
+  selector: 'job-search-form',
+  templateUrl: './job-search-form.component.html',
+  styleUrls: ['./job-search-form.component.scss']
 })
-export class JobSeekerComponent implements OnInit {
+export class JobSearchFormComponent implements OnInit {
   constructor() {
   }
   jobSearchForm: FormGroup;
