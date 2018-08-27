@@ -28,11 +28,11 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <app-autocomplete (formReady)="addFormControl('location', $event)"></app-autocomplete>
+                <app-autocomplete (formReady)="addFormControl('location', $event)" label="{{ label }}" placeholder="{{ placeholder }}"></app-autocomplete>
             </form>
         </mat-card-content>
         <mat-card-footer>
-            <button type="submit" mat-raised-button color="accent">Search</button>
+            <button type="submit" mat-raised-button color="primary">Search</button>
         </mat-card-footer>
     </mat-card>
 </div>

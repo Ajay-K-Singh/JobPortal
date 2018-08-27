@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const jobPostSchema = mongoose.Schema({
     jobTitle: { type: String },
-    nameOfCOmpany: { type: String },
+    nameOfCompany: { type: String },
     experienceRange: { type: String },
     location: { type: String },
     keySkills: { type: String },

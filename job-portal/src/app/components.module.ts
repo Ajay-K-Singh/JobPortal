@@ -15,6 +15,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { JobSeekerHeaderComponent } from './layout/job-seeker-header/job-seeker-header.component';
 import { JobSearchFormComponent } from './job-seeker/job-search-form/job-search-form.component';
+import { JobListingsComponent } from './recruiter/job-listings/job-listings.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { JobSearchFormComponent } from './job-seeker/job-search-form/job-search-
     RecruiterHeaderComponent,
     AutocompleteComponent,
     JobSeekerHeaderComponent,
-    JobSearchFormComponent
+    JobSearchFormComponent,
+    JobListingsComponent
   ],
   exports: [
     LandingPageComponent,
@@ -48,7 +50,8 @@ import { JobSearchFormComponent } from './job-seeker/job-search-form/job-search-
     RecruiterHeaderComponent,
     AutocompleteComponent,
     JobSeekerHeaderComponent,
-    JobSearchFormComponent
+    JobSearchFormComponent,
+    JobListingsComponent
   ]
 })
 export class ComponentsModule { }

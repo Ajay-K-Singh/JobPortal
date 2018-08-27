@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
 import { PostJob } from '../post-job.model';
 import { JobPostingService } from '../job-posting.service';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -14,6 +13,8 @@ import { Validators } from '@angular/forms';
 export class PostJobsComponent implements OnInit {
   postJob: PostJob;
   jobPostForm: FormGroup;
+  label = "Location";
+  placeholder = "Location of the Job"
   constructor(public jobPostingService: JobPostingService) { }
 
   ngOnInit() {
@@ -33,10 +34,11 @@ export class PostJobsComponent implements OnInit {
   onSubmit() {
     const form = this.jobPostForm;
     console.log(form);
-    // if (form.invalid) {
-    //   return;
-    // }
+    if (form.invalid) {
+      return;
+    }
     const jobPost = {
+      id: null,
       jobTitle: form.value.jobTitle,
       nameOfCompany: form.value.nameOfCompany,
       experienceRange: form.value.experienceRange,
@@ -44,7 +46,8 @@ export class PostJobsComponent implements OnInit {
       keySkills: form.value.keySkills,
       jobDescription: form.value.jobDescription
     }
-    // this.jobPostingService.addJobPosting(jobPost.jobTitle, 
-    //   jobPost.nameOfCompany,jobPost.experienceRange, jobPost.location, jobPost.keySkills, jobPost.jobDescription);
+    console.log(jobPost.nameOfCompany);
+    this.jobPostingService.addJobPosting(jobPost.id, jobPost.jobTitle, 
+      jobPost.nameOfCompany,jobPost.experienceRange, jobPost.location, jobPost.keySkills, jobPost.jobDescription);
   }
 }

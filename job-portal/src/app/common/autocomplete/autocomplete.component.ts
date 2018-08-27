@@ -14,7 +14,8 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
 	private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   private form: FormGroup; 
   predictions: Places[] = [];
-  @Input() label: string = 'Some Label';
+  @Input() label: string;
+  @Input() placeholder: string;
   private placesPredictions: Subscription;
   predictionFilled = false;
   constructor(private fb: FormBuilder, public googleMapsService: GoogleMapsService) { 
@@ -42,7 +43,6 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.formReady.emit(this.form);
-    console.log(this.label);
   }
 
   onChangeLocation(location) {

@@ -7,11 +7,12 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./job-search-form.component.scss']
 })
 export class JobSearchFormComponent implements OnInit {
-  constructor() {
-  }
+  constructor() {}
   jobSearchForm: FormGroup;
   filteredLocations = null;
   selectedLocation = null;
+  label = "Search by location";
+  placeholder = "Search jobs by location";
   expList = [
     {name: '0 Year', value: 0},
     {name: '1', value: 1},

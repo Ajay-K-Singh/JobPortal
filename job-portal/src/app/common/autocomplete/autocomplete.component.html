@@ -1,7 +1,7 @@
 <form [formGroup]="form">
     <mat-form-field appearance="outline" class="common-location">
-        <mat-label>Location</mat-label>
-        <input matInput type="text" formControlName="location" name="location" aria-label="Location" [matAutocomplete]="auto">
+        <mat-label>{{label}}</mat-label>
+        <input matInput type="text" formControlName="location" placeholder="{{ placeholder }}" name="location" aria-label="Location" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="location">
             <mat-option *ngFor="let places of predictions" [value]="places.description">
                 <span>{{places.description}}</span>

@@ -19,7 +19,7 @@
                     <input matInput type="text" placeholder="Experience Range" name="experienceRange" formControlName="experienceRange">
                     <mat-error>Please enter experience range needed.</mat-error>
                 </mat-form-field>
-                <app-autocomplete (formReady)="addFormControl('location', $event)" [label]="Location"></app-autocomplete>
+                <app-autocomplete (formReady)="addFormControl('location', $event)" label="{{ label }}" placeholder="{{ placeholder }}"></app-autocomplete>
                 <mat-form-field appearance="outline">
                     <mat-label>Key Skills Needed</mat-label>
                     <input matInput type="text" placeholder="Key Skills Needed" name="keySkills" formControlName="keySkills">
