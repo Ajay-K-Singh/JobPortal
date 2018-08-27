@@ -9,17 +9,13 @@
                     <input matInput type="text" placeholder="Title Of Job" name="jobTitle" formControlName="jobTitle">
                     <mat-error>Please enter a job title.</mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Name Of the Company</mat-label>
-                    <input matInput type="text" placeholder="Name Of the Company" name="nameOfCompany" formControlName="nameOfCompany">
-                    <mat-error>Please enter name of company.</mat-error>
-                </mat-form-field>
+                <app-company-autosuggetion (formReady)="addFormControl('nameOfCompany', $event)" label="{{ nameOfCompanyLabel }}" placeholder="{{ nameOfCompanyLabel }}"></app-company-autosuggetion>
                 <mat-form-field appearance="outline">
                     <mat-label>Experience Range</mat-label>
                     <input matInput type="text" placeholder="Experience Range" name="experienceRange" formControlName="experienceRange">
                     <mat-error>Please enter experience range needed.</mat-error>
                 </mat-form-field>
-                <app-autocomplete (formReady)="addFormControl('location', $event)" label="{{ label }}" placeholder="{{ placeholder }}"></app-autocomplete>
+                <app-autocomplete (formReady)="addFormControl('location', $event)" label="{{ locationLabel }}" placeholder="{{ locationPlaceholder }}"></app-autocomplete>
                 <mat-form-field appearance="outline">
                     <mat-label>Key Skills Needed</mat-label>
                     <input matInput type="text" placeholder="Key Skills Needed" name="keySkills" formControlName="keySkills">

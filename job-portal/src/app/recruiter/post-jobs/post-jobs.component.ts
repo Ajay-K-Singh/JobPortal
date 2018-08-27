@@ -13,8 +13,9 @@ import { Validators } from '@angular/forms';
 export class PostJobsComponent implements OnInit {
   postJob: PostJob;
   jobPostForm: FormGroup;
-  label = "Location";
-  placeholder = "Location of the Job"
+  locationLabel = "Location";
+  locationPlaceholder = "Location of the Job";
+  nameOfCompanyLabel = "Name Of Copmany";
   constructor(public jobPostingService: JobPostingService) { }
 
   ngOnInit() {
