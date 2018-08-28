@@ -3,13 +3,14 @@ import { PostJob } from './post-job.model';
 import { HttpClient } from  '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '../../../node_modules/@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobPostingService {
   private jobPosts: PostJob[] = [];
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
   private jobsPosted = new Subject<PostJob[]>();
   addJobPosting(id: string,
     jobTitle: string,
@@ -29,7 +30,12 @@ export class JobPostingService {
       };
       this.http.post<{ id: string, jobTitle: string, nameOfCOmpany: string, experienceRange: string, location: string, keySkills: string, jobDescription: string}>('http://localhost:3000/api/post-job', postJob)
         .subscribe((response) => {
-          console.log(response);
+            const id = response.id;
+						postJob.id = id;
+						this.jobPosts.push(postJob);
+						this.jobsPosted.next([...this.jobPosts]);
+						this.router.navigate(["/recruiter"]);
+            console.log(response);
         });
   }
   

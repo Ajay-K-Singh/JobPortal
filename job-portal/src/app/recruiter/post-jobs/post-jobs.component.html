@@ -3,7 +3,7 @@
         <mat-card-title>Post Job</mat-card-title>
         <hr>
         <mat-card-content>
-            <form [formGroup]="jobPostForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="jobPostForm" (ngSubmit)="onSubmit()" autocomplete="off">
                 <mat-form-field appearance="outline">
                     <mat-label>Title Of Job</mat-label>
                     <input matInput type="text" placeholder="Title Of Job" name="jobTitle" formControlName="jobTitle">

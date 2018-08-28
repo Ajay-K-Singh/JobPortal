@@ -70,4 +70,9 @@ app.get("/api/google-places", (req, res) => {
 	axios.get(url).then(response => res.send(response.data)).catch(err => console.log(err));
 });
 
+app.get("/api/suggest-companies", (req, res) => {
+	const url = `https://autocomplete.clearbit.com/v1/companies/suggest?query=${req.query.nameOfCompany}`;
+	axios.get(url).then(response => res.send(response.data)).catch(err => console.log(err));
+});
+
 module.exports = app;

@@ -1,12 +1,16 @@
 <form [formGroup]="form">
-    <mat-form-field appearance="outline">
-        <mat-label>{{label}}</mat-label>
-        <input matInput type="text" formControlName="nameOfCompany" placeholder="{{ placeholder }}" name="nameOfCopany" aria-label="Name Of Company" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="nameOfCompany">
-            <mat-option *ngFor="let company of companies" [value]="company.name">
-                <span>{{company.name}}</span>
-            </mat-option>
-        </mat-autocomplete>
-        <mat-error>Please enter company's name.</mat-error>
-    </mat-form-field>
+	<mat-form-field appearance="outline">
+		<mat-label>{{label}}</mat-label>
+		<input matInput type="text" formControlName="nameOfCompany" placeholder="{{ placeholder }}" name="nameOfCopany" aria-label="Name Of Company" [matAutocomplete]="auto">
+		<mat-autocomplete #auto="matAutocomplete" [displayWith]="nameOfCompany">
+			<mat-option *ngFor="let company of companies" [value]="company.name">
+				<span>
+					<img src="{{company.logo}}" class="company-logo">
+					{{company.name}}
+					<b class="company-domain"><a href="{{company.domain}}" target="_blank">{{company.domain}}</a></b>
+				</span>
+			</mat-option>
+		</mat-autocomplete>
+		<mat-error>Please enter company's name.</mat-error>
+	</mat-form-field>
 </form>

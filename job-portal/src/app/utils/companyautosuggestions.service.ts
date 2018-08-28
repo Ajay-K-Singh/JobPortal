@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from  '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Companies } from './comapnies.model';
@@ -9,14 +9,15 @@ import { Companies } from './comapnies.model';
 })
 
 export class CompanyAutoSuggestionService {
-	private companies: Companies[] =  [];
-	private suggestedCompaniesResponse = new Subject<Companies[]>();
-	constructor(private http: HttpClient){}
-	suggestCompanies(nameOfCompany: string) {
-		this.http.get<{ companies: any }>('http://localhost:3000/api/suggest-companies', 
+  private companies: Companies[] =  [];
+  private suggestedCompaniesResponse = new Subject<Companies[]>();
+  constructor(private http: HttpClient){}
+  
+  suggestCompanies(nameOfCompany: string) {
+    this.http.get<{ companies: any }>('http://localhost:3000/api/suggest-companies', 
     {params: {nameOfCompany: nameOfCompany}})
       .pipe(map((response) => {
-        return response.companies.map((res) => {
+        return response.map((res) => {
           return {
 						domain: res.domain,
 						logo: res.logo,

@@ -21,7 +21,6 @@ export class PostJobsComponent implements OnInit {
   ngOnInit() {
     this.jobPostForm = new FormGroup({
       'jobTitle': new FormControl(null, Validators.required),
-      'nameOfCompany': new FormControl(null, Validators.required),
       'experienceRange': new FormControl(null, Validators.required),
       'keySkills': new FormControl(null, Validators.required),
       'jobDescription': new FormControl(null, Validators.required)
@@ -41,7 +40,7 @@ export class PostJobsComponent implements OnInit {
     const jobPost = {
       id: null,
       jobTitle: form.value.jobTitle,
-      nameOfCompany: form.value.nameOfCompany,
+      nameOfCompany: form.value.nameOfCompany['nameOfCompany'],
       experienceRange: form.value.experienceRange,
       location: form.value.location['location'],
       keySkills: form.value.keySkills,
@@ -50,5 +49,6 @@ export class PostJobsComponent implements OnInit {
     console.log(jobPost.nameOfCompany);
     this.jobPostingService.addJobPosting(jobPost.id, jobPost.jobTitle, 
       jobPost.nameOfCompany,jobPost.experienceRange, jobPost.location, jobPost.keySkills, jobPost.jobDescription);
+    form.reset();
   }
 }
