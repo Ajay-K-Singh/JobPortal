@@ -16,7 +16,7 @@ export class CompanyAutoSuggestionService {
   suggestCompanies(nameOfCompany: string) {
     this.http.get<{ companies: any }>('http://localhost:3000/api/suggest-companies', 
     {params: {nameOfCompany: nameOfCompany}})
-      .pipe(map((response) => {
+      .pipe(map((response: any[]) => {
         return response.map((res) => {
           return {
 						domain: res.domain,
@@ -25,7 +25,7 @@ export class CompanyAutoSuggestionService {
           }
         })
       }))
-      .subscribe((suggestions) => {
+      .subscribe((suggestions: any) => {
         this.companies = suggestions;
         this.suggestedCompaniesResponse.next([...this.companies])
       });
