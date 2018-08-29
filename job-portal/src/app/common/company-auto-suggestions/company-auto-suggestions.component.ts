@@ -11,6 +11,7 @@ import { CompanyAutoSuggestionService } from '../../utils/companyautosuggestions
   })
   export class CompanyAutocompleteComponent implements OnInit, OnDestroy {
   @Output() private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();  
+  @Output() private onSelectedCompany = new EventEmitter<any>();
   private form: FormGroup; 
   companies: Companies[] = [];
   @Input() label: string;
@@ -50,6 +51,10 @@ import { CompanyAutoSuggestionService } from '../../utils/companyautosuggestions
       console.log(companies);
       this.companies = companies;
     });
+  }
+
+  onSelect(event, company) {
+    this.onSelectedCompany.emit({event, company})
   }
 
   ngOnInit() {

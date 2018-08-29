@@ -59,7 +59,6 @@ app.get("/api/job-posts", (req, res) => {
 
 app.delete("/api/job-posts/:id", (req, res) => {
     JobPost.deleteOne({ _id: req.params.id }).then(result => {
-        console.log(result);
         res.status(200).json({ message: "Post deleted!" });
     });
 });

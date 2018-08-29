@@ -9,7 +9,7 @@
                     <input matInput type="text" placeholder="Title Of Job" name="jobTitle" formControlName="jobTitle">
                     <mat-error>Please enter a job title.</mat-error>
                 </mat-form-field>
-                <app-company-autosuggetion (formReady)="addFormControl('nameOfCompany', $event)" label="{{ nameOfCompanyLabel }}" placeholder="{{ nameOfCompanyLabel }}"></app-company-autosuggetion>
+                <app-company-autosuggetion (formReady)="addFormControl('nameOfCompany', $event)" (onSelectedCompany)="setSelectedCompamy($event)" label="{{ nameOfCompanyLabel }}" placeholder="{{ nameOfCompanyLabel }}"></app-company-autosuggetion>
                 <mat-form-field appearance="outline">
                     <mat-label>Experience Range</mat-label>
                     <input matInput type="text" placeholder="Experience Range" name="experienceRange" formControlName="experienceRange">

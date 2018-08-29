@@ -3,8 +3,8 @@
     <mat-expansion-panel *ngFor="let jobPost of jobPosts">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <mat-icon>home</mat-icon>
-                <h3>{{jobPost.nameOfCompany}}</h3>
+                <img src="{{jobPost.nameOfCompany.logo}}" class="company-logo">
+                <h3>{{jobPost.nameOfCompany.nameOfCompany}}</h3>
             </mat-panel-title>
             <mat-panel-description>
                 <h3><b>{{jobPost.jobTitle}}</b></h3>

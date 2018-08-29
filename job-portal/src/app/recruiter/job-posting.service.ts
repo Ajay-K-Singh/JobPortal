@@ -14,7 +14,7 @@ export class JobPostingService {
   private jobsPosted = new Subject<PostJob[]>();
   addJobPosting(id: string,
     jobTitle: string,
-    nameOfCompany: string,
+    nameOfCompany: object,
     experienceRange: string,
     location: string,
     keySkills: string,
@@ -22,13 +22,13 @@ export class JobPostingService {
       const postJob: PostJob = {
         id: null,
         jobTitle: jobTitle,
-        nameOfCompany: nameOfCompany,
+        nameOfCompany,
         experienceRange: experienceRange,
         location: location,
         keySkills: keySkills,
         jobDescription: jobDescription
       };
-      this.http.post<{ id: string, jobTitle: string, nameOfCOmpany: string, experienceRange: string, location: string, keySkills: string, jobDescription: string}>('http://localhost:3000/api/post-job', postJob)
+      this.http.post<{ id: string, jobTitle: string, nameOfCOmpany: object, experienceRange: string, location: string, keySkills: string, jobDescription: string}>('http://localhost:3000/api/post-job', postJob)
         .subscribe((response) => {
             const id = response.id;
 						postJob.id = id;
