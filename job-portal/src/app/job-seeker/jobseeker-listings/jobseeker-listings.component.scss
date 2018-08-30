@@ -28,3 +28,16 @@ img {
     display: grid;
     grid-template-columns: 1fr 40fr;
 }
+
+.panel-title {
+    font-size: 1.2rem;
+}
+
+mat-icon {
+    float: right;
+    margin: 0;
+}
+
+.close:hover {
+    color: red;
+}
