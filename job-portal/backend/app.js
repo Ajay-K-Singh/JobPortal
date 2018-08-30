@@ -39,7 +39,8 @@ app.post("/api/post-job", (req, res) => {
         experienceRange: req.body.experienceRange,
         location: req.body.location,
         keySkills: req.body.keySkills,
-        jobDescription: req.body.jobDescription
+        jobDescription: req.body.jobDescription,
+        salary: req.body.salary
     });
     newJobPosting.save().then(jobPosted => {
         res.status(201).json({

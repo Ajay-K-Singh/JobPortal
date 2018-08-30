@@ -1,11 +1,28 @@
 <h2>Jobs recommended for you.</h2>
-<mat-card *ngFor="let jobPost of jobPosts">
+<mat-card *ngFor="let jobPost of jobPosts" class="job-posts">
     <div class="job-info">
         <mat-checkbox><b>{{jobPost.jobTitle}}</b></mat-checkbox>
         <mat-icon class="close">close</mat-icon>
-        <div class="company-info">
+        <span class="company-info">
             <img src="{{jobPost.nameOfCompany.logo}}" class="company-logo">
             <h3>{{jobPost.nameOfCompany.nameOfCompany}}</h3>
+				</span>
+        <div>
+            <span>
+							<i class="material-icons work-experience">work</i> 
+							{{jobPost.experienceRange}}
+        		</span>
+            <span>
+							<i class="material-icons location">location_on</i> 
+							{{jobPost.location}}
+						</span>
+        </div>
+        <div>
+            <p>
+                <span>
+									<i class="material-icons keyskill-icon">perm_data_setting</i> 
+								</span> {{jobPost.keySkills}}
+            </p>
         </div>
     </div>
     <mat-accordion multi="true" *ngIf="jobPosts.length > 0">
@@ -18,4 +35,7 @@
             <div>{{jobPost.jobDescription}}</div>
         </mat-expansion-panel>
     </mat-accordion>
+    <div class="bottom">
+        <i class="fas fa-rupee-sign"></i> {{jobPost.salary}}
+    </div>
 </mat-card>

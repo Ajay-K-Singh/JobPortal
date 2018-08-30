@@ -5,5 +5,6 @@ export interface PostJob {
     experienceRange: string,
     location: string,
     keySkills: string,
-    jobDescription: string
+    jobDescription: string,
+    salary: string
 }

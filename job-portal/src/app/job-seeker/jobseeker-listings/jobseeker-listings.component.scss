@@ -4,6 +4,7 @@ mat-icon {
 
 mat-card {
     margin-bottom: 1rem;
+    background-color: aliceblue;
 }
 
 mat-panel-description {
@@ -26,7 +27,7 @@ img {
 
 .company-info {
     display: grid;
-    grid-template-columns: 1fr 40fr;
+    grid-template-columns: 1fr 35fr;
 }
 
 .panel-title {
@@ -44,4 +45,21 @@ mat-icon {
 
 mat-expansion-panel {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
+.work-experience,
+.location {
+    position: relative;
+    top: 0.3rem;
+    color: rgb(78, 164, 190);
+}
+
+.keyskill-icon {
+    position: relative;
+    top: 0.3rem;
+    color: rgb(78, 164, 190);
+}
+
+.bottom {
+    margin-top: 1rem;
 }

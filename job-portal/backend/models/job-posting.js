@@ -6,7 +6,8 @@ const jobPostSchema = mongoose.Schema({
     experienceRange: { type: String },
     location: { type: String },
     keySkills: { type: String },
-    jobDescription: { type: String }
+    jobDescription: { type: String },
+    salary: {type: String}
 });
 
 module.exports = mongoose.model('JobPost', jobPostSchema);

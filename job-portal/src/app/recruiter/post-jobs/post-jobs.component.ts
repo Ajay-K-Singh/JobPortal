@@ -23,7 +23,8 @@ export class PostJobsComponent implements OnInit {
       'jobTitle': new FormControl(null, Validators.required),
       'experienceRange': new FormControl(null, Validators.required),
       'keySkills': new FormControl(null, Validators.required),
-      'jobDescription': new FormControl(null, Validators.required)
+      'jobDescription': new FormControl(null, Validators.required),
+      'salary': new FormControl(null, Validators.required)
     });
   }
 
@@ -52,11 +53,12 @@ export class PostJobsComponent implements OnInit {
       experienceRange: form.value.experienceRange,
       location: form.value.location['location'],
       keySkills: form.value.keySkills,
-      jobDescription: form.value.jobDescription
+      jobDescription: form.value.jobDescription,
+      salary: form.value.salary
     }
     console.log(jobPost.nameOfCompany);
     this.jobPostingService.addJobPosting(jobPost.id, jobPost.jobTitle, 
-      jobPost.nameOfCompany,jobPost.experienceRange, jobPost.location, jobPost.keySkills, jobPost.jobDescription);
-    // form.reset();
+      jobPost.nameOfCompany,jobPost.experienceRange, jobPost.location, jobPost.keySkills, jobPost.jobDescription, jobPost.salary);
+    form.reset();
   }
 }
