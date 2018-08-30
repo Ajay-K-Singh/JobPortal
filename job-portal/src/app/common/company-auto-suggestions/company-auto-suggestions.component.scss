@@ -1,14 +1,15 @@
 mat-form-field {
-  width: 80%;
-}
-
-.company-logo {
-	margin-top: 5px;
-	height: 30px;
-	width: 30px;
+    width: 80%;
 }
 
 .company-domain {
-	float: right;
-	font-size: 10px;
+    float: right;
+    font-size: 10px;
+}
+
+.company-logo {
+    position: relative;
+    top: 0.5rem;
+    height: 30px;
+    width: 30px;
 }
