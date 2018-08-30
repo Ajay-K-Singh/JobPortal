@@ -1,0 +1,30 @@
+mat-icon {
+    margin-top: 1rem;
+}
+
+mat-card {
+    margin-bottom: 1rem;
+}
+
+mat-panel-description {
+    text-align: center;
+}
+
+.company-logo {
+    height: 30px;
+    width: 30px;
+}
+
+img {
+    margin-top: 1rem;
+    margin-left: -0.3rem;
+}
+
+.job-info {
+    margin-bottom: 1rem;
+}
+
+.company-info {
+    display: grid;
+    grid-template-columns: 1fr 40fr;
+}

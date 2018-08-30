@@ -8,7 +8,7 @@ import { RecruiterLayoutComponent } from "./layout/recruiter-layout/recruiter-la
 import { JobSeekerLayoutComponent } from './layout/job-seeker-layout/job-seeker-layout.component';
 import { JobSearchFormComponent } from './job-seeker/job-search-form/job-search-form.component';
 import { JobListingsComponent } from './recruiter/job-listings/job-listings.component';
-
+import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobseeker-listings.component';
 
 const routes: Routes = [
     {
@@ -20,7 +20,7 @@ const routes: Routes = [
         component: JobSeekerLayoutComponent,
         children: [{
             path: '',
-            component: JobSeekerComponent
+            component: JobSeekerListingsComponent
         },
         {
             path: 'search-job',

@@ -5,10 +5,10 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-jobseeker-listings',
-  templateUrl: './job-listings.component.html',
-  styleUrls: ['./job-listings.component.scss']
+  templateUrl: './jobseeker-listings.component.html',
+  styleUrls: ['./jobseeker-listings.component.scss']
 })
-export class JobListingsComponent implements OnInit {
+export class JobSeekerListingsComponent implements OnInit {
   jobPosts: PostJob[] = [];
   private jobListings: Subscription;
   constructor(public jobPostingService: JobPostingService){}
@@ -19,10 +19,6 @@ export class JobListingsComponent implements OnInit {
       console.log(jobPosts);
       this.jobPosts = jobPosts;
     });
-  }
-
-  onDeleteJobPost(jobPostId: string) {
-    this.jobPostingService.deleteJobPost(jobPostId);
   }
 
   ngOnDestroy() {

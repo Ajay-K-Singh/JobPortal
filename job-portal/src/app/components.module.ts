@@ -17,6 +17,8 @@ import { JobSeekerHeaderComponent } from './layout/job-seeker-header/job-seeker-
 import { JobSearchFormComponent } from './job-seeker/job-search-form/job-search-form.component';
 import { JobListingsComponent } from './recruiter/job-listings/job-listings.component';
 import { CompanyAutocompleteComponent } from './common/company-auto-suggestions/company-auto-suggestions.component';
+import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobseeker-listings.component';
+
 @NgModule({
   imports: [
     MaterialModule,
@@ -39,7 +41,8 @@ import { CompanyAutocompleteComponent } from './common/company-auto-suggestions/
     JobSeekerHeaderComponent,
     JobSearchFormComponent,
     JobListingsComponent,
-    CompanyAutocompleteComponent
+    CompanyAutocompleteComponent,
+    JobSeekerListingsComponent
   ],
   exports: [
     LandingPageComponent,
@@ -53,7 +56,8 @@ import { CompanyAutocompleteComponent } from './common/company-auto-suggestions/
     JobSeekerHeaderComponent,
     JobSearchFormComponent,
     JobListingsComponent,
-    CompanyAutocompleteComponent
+    CompanyAutocompleteComponent,
+    JobSeekerListingsComponent
   ]
 })
 export class ComponentsModule { }

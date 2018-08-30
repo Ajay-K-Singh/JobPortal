@@ -1,0 +1,20 @@
+<h2>Jobs recommended for you.</h2>
+<mat-card *ngFor="let jobPost of jobPosts">
+    <div class="job-info">
+        <mat-checkbox><b>{{jobPost.jobTitle}}</b></mat-checkbox>
+        <div class="company-info">
+            <img src="{{jobPost.nameOfCompany.logo}}" class="company-logo">
+            <h3>{{jobPost.nameOfCompany.nameOfCompany}}</h3>
+        </div>
+    </div>
+    <mat-accordion multi="true" *ngIf="jobPosts.length > 0">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <b>Job Descrption</b>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>{{jobPost.jobDescription}}</div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-card>
