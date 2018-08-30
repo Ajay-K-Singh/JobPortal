@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PostJob } from '../post-job.model';
-import { JobPostingService } from '../job-posting.service';
+import { PostJob } from '../../models/post-job.model';
+import { JobPostingService } from '../../services/job-posting.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { Companies } from '../../utils/comapnies.model';
 
 @Component({
   selector: 'app-post-jobs',

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Companies } from './comapnies.model';
+import { Companies } from '../models/comapnies.model';
 
 @Injectable({
   providedIn: 'root'

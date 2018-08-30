@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, Input , OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Places } from '../../utils/places.model';
+import { Places } from '../../models/places.model';
 import { Subscription } from 'rxjs';
-import { GoogleMapsService } from '../../utils/googlemaps.service';
+import { GoogleMapsService } from '../../services/googlemaps.service';
 
 @Component({
   selector: 'app-autocomplete',

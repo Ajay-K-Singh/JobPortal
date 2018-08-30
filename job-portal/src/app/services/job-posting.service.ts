@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PostJob } from './post-job.model';
+import { PostJob } from '../models/post-job.model';
 import { HttpClient } from  '@angular/common/http';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';

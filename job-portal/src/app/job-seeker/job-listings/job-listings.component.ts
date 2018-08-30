@@ -4,7 +4,7 @@ import { PostJob } from '../../models/post-job.model';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-job-listings',
+  selector: 'app-jobseeker-listings',
   templateUrl: './job-listings.component.html',
   styleUrls: ['./job-listings.component.scss']
 })

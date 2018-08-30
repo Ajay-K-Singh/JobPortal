@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, Input , OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Companies } from '../../utils/comapnies.model';
+import { Companies } from '../../models/comapnies.model';
 import { Subscription } from 'rxjs';
-import { CompanyAutoSuggestionService } from '../../utils/companyautosuggestions.service';
+import { CompanyAutoSuggestionService } from '../../services/companyautosuggestions.service';
 
 @Component({
     selector: 'app-company-autosuggetion',
