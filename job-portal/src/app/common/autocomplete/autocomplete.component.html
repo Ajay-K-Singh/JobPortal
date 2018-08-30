@@ -4,7 +4,7 @@
         <input matInput type="text" formControlName="location" placeholder="{{ placeholder }}" name="location" aria-label="Location" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="location">
             <mat-option *ngFor="let places of predictions" [value]="places.description">
-                <span>{{places.description}}</span>
+                <i class="material-icons">location_on</i> {{places.description}}
             </mat-option>
         </mat-autocomplete>
         <mat-error>Please enter location of job.</mat-error>
