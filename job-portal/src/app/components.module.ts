@@ -18,7 +18,8 @@ import { JobSearchFormComponent } from './job-seeker/job-search-form/job-search-
 import { JobListingsComponent } from './recruiter/job-listings/job-listings.component';
 import { CompanyAutocompleteComponent } from './common/company-auto-suggestions/company-auto-suggestions.component';
 import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobseeker-listings.component';
-
+import { KeySkillsComponent } from './common/key-skills/key-skills.component';
+import { ChipListComponent } from './common/key-skills/chip-list/chip-list.component';
 @NgModule({
   imports: [
     MaterialModule,
@@ -42,7 +43,9 @@ import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobs
     JobSearchFormComponent,
     JobListingsComponent,
     CompanyAutocompleteComponent,
-    JobSeekerListingsComponent
+    JobSeekerListingsComponent,
+    KeySkillsComponent,
+    ChipListComponent
   ],
   exports: [
     LandingPageComponent,
@@ -57,7 +60,9 @@ import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobs
     JobSearchFormComponent,
     JobListingsComponent,
     CompanyAutocompleteComponent,
-    JobSeekerListingsComponent
+    JobSeekerListingsComponent,
+    KeySkillsComponent,
+    ChipListComponent
   ]
 })
 export class ComponentsModule { }
