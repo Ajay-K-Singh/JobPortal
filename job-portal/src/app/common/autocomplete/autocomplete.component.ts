@@ -12,7 +12,7 @@ import { GoogleMapsService } from '../../services/googlemaps.service';
 export class AutocompleteComponent implements OnInit, OnDestroy {
   @Output()
 	private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
-  private form: FormGroup; 
+  private form: FormGroup;
   predictions: Places[] = [];
   @Input() label: string;
   @Input() placeholder: string;

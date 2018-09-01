@@ -1,5 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output, Input , OnDestroy, OnInit} from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { Skills } from '../../models/skills.model';
+import { SkillsOpenApiService } from '../../services/skillsopenapi.service';
+import { Subscription } from 'rxjs';
 
 export interface Skills {
   name: string;
@@ -10,30 +13,74 @@ export interface Skills {
   templateUrl: 'key-skills.component.html',
   styleUrls: ['key-skills.component.scss'],
 })
-export class KeySkillsComponent {
-	skills: Skills[] = [];
-	private form: FormGroup; 
-	constructor(private fb: FormBuilder) { 
+export class KeySkillsComponent implements OnInit, OnDestroy {
+  skills: Skills[] = [];
+  skillsChipListArray = [];
+  private form: FormGroup;
+  predictionFilled: boolean = false;
+  private skillSuggestions:  Subscription;
+  private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+	constructor(private fb: FormBuilder, public skillsService: SkillsOpenApiService) { 
 		this.form = this.fb.group({
 			"keySkills": new FormControl()
     });
-	}
+    this.form.get('keySkills').valueChanges.subscribe(
+      (value) => {
+        if (this.skills.length > 0) {
+          this.skills.forEach(skill => { 
+            if (skill.suggestion === value) {
+              this.predictionFilled = true;
+              this.addSkillsToArray(value);
+            }
+          });
+        } else {
+          this.predictionFilled = false;
+        }
+        if (value === "") {
+          this.predictionFilled = false;
+          this.skills = [];
+        }
+        this.onChangeSkill(value)
+      }
+    );
+  }
 
-  onAddSkills(event) {
-    if (event.key === "Enter" || event.key===",") {
-        this.addSkillsToArray(this.form.value['keySkills']);
+  ngOnInit() {
+    this.formReady.emit(this.form);
+  }
+  
+  onChangeSkill(partialSkill) {
+    if ( this.predictionFilled || partialSkill == '' ) {
+      return;
     }
+    this.skillsService.suggestSkills(partialSkill);
+    this.skillSuggestions = this.skillsService.getPredictionsUpdateListener().subscribe((skills: Skills[]) => {
+      console.log(skills);
+      this.skills = skills;
+    });
+  }
+
+  onAddSkills() {
+    this.addSkillsToArray(this.form.value['keySkills']);
   }
 
   onBlurMethod() {
-			this.addSkillsToArray(this.form.value['keySkills'])
+		this.addSkillsToArray(this.form.value['keySkills'])
   }
 
   addSkillsToArray(skill) {
     if ((skill || '').trim()) {
-        this.skills.push({name: skill.trim()});
+        this.skillsChipListArray.push({name: skill.trim()});
 			}
-		this.form.reset();
+    this.form.reset();
+    this.skills = [];
+    this.predictionFilled = false;
     event.preventDefault();
+  }
+
+  ngOnDestroy() {
+    if(this.skillSuggestions){
+      this.skillSuggestions.unsubscribe();
+     }
   }
 }
