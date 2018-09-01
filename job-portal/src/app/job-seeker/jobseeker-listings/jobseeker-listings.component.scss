@@ -25,7 +25,8 @@ img {
     margin-bottom: 1rem;
 }
 
-.company-info {
+.company-info,
+.skill-set {
     display: grid;
     grid-template-columns: 1fr 35fr;
 }

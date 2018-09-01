@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="company-suggestions">
         <mat-label>{{label}}</mat-label>
         <input matInput type="text" formControlName="nameOfCompany" placeholder="{{ placeholder }}" name="nameOfCopany" aria-label="Name Of Company" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="nameOfCompany">

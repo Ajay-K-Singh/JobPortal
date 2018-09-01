@@ -1,26 +1,20 @@
-mat-card {
-    width: 78%;
-    grid-column-start: 2;
-    grid-column-end: 6;
-}
-
-.post-job-form {
+form {
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
-}
-
-mat-form-field,
-app-autocomplete {
-    width: 80%;
-}
-
-mat-card-content {
-    text-align: center;
-    margin-top: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
 }
 
 mat-card-footer {
+    grid-column-start: 1;
+    grid-column-end: 3;
     height: 5rem;
     width: 100%;
     text-align: center;
+}
+
+.job-description {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: 0 auto;
+    width: 100%;
 }

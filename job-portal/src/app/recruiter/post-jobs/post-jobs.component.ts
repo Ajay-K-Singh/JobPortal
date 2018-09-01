@@ -62,6 +62,6 @@ export class PostJobsComponent implements OnInit {
     }
     this.jobPostingService.addJobPosting(jobPost.id, jobPost.jobTitle, 
       jobPost.nameOfCompany,jobPost.experienceRange, jobPost.location, jobPost.keySkills, jobPost.jobDescription, jobPost.salary);
-    // form.reset();
+    form.reset();
   }
 }

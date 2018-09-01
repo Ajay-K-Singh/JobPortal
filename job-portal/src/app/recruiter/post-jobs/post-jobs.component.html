@@ -18,14 +18,14 @@
                 <app-autocomplete (formReady)="addFormControl('location', $event)" label="{{ locationLabel }}" placeholder="{{ locationPlaceholder }}"></app-autocomplete>
                 <key-skills (formReady)="addFormControl('keySkills', $event)" (selectedSkillSet)="setSelectedSkillSet($event)"></key-skills>
                 <mat-form-field appearance="outline">
-                    <mat-label>Job Description</mat-label>
-                    <textarea matInput placeholder="Job Description" rows="6" name="jobDescription" formControlName="jobDescription"></textarea>
-                    <mat-error>Please enter a job description.</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
                     <mat-label>Salary</mat-label>
                     <input matInput type="text" placeholder="Salary" name="salary" formControlName="salary">
                     <mat-error>Please enter a salary.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="job-description">
+                    <mat-label>Job Description</mat-label>
+                    <textarea matInput placeholder="Job Description" rows="6" name="jobDescription" formControlName="jobDescription"></textarea>
+                    <mat-error>Please enter a job description.</mat-error>
                 </mat-form-field>
                 <mat-card-footer>
                     <button type="submit" mat-raised-button color="accent">Post Job</button>
