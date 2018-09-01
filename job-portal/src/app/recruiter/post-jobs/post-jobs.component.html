@@ -16,7 +16,7 @@
                     <mat-error>Please enter experience range needed.</mat-error>
                 </mat-form-field>
                 <app-autocomplete (formReady)="addFormControl('location', $event)" label="{{ locationLabel }}" placeholder="{{ locationPlaceholder }}"></app-autocomplete>
-                <key-skills></key-skills>
+                <key-skills (formReady)="addFormControl('keySkills', $event)" (selectedSkillSet)="setSelectedSkillSet($event)"></key-skills>
                 <mat-form-field appearance="outline">
                     <mat-label>Job Description</mat-label>
                     <textarea matInput placeholder="Job Description" rows="6" name="jobDescription" formControlName="jobDescription"></textarea>

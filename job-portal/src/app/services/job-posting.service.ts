@@ -17,19 +17,20 @@ export class JobPostingService {
     nameOfCompany: object,
     experienceRange: string,
     location: string,
-    keySkills: string,
+    keySkills: object,
     jobDescription: string, salary: string ) {
+      console.log(keySkills);
       const postJob: PostJob = {
         id: null,
         jobTitle: jobTitle,
         nameOfCompany,
         experienceRange: experienceRange,
         location: location,
-        keySkills: keySkills,
+        keySkills,
         jobDescription: jobDescription,
         salary: salary
       };
-      this.http.post<{ id: string, jobTitle: string, nameOfCOmpany: object, experienceRange: string, location: string, keySkills: string, jobDescription: string, salary: string}>('http://localhost:3000/api/post-job', postJob)
+      this.http.post<{ id: string, jobTitle: string, nameOfCOmpany: object, experienceRange: string, location: string, keySkills: object, jobDescription: string, salary: string}>('http://localhost:3000/api/post-job', postJob)
         .subscribe((response) => {
             const id = response.id;
 						postJob.id = id;

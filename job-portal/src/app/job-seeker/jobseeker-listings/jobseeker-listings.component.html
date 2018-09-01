@@ -21,7 +21,8 @@
             <p>
                 <span>
 									<i class="material-icons keyskill-icon">perm_data_setting</i> 
-								</span> {{jobPost.keySkills}}
+                </span>
+                <chip-list [skills]="jobPost.keySkills" removable="false"></chip-list>
             </p>
         </div>
     </div>

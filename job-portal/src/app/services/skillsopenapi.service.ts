@@ -24,7 +24,6 @@ export class SkillsOpenApiService {
         })
       }))
       .subscribe((suggestions: any) => {
-        console.log(suggestions);
         this.skillSuggestions = suggestions;
         this.skillsSuggested.next([...this.skillSuggestions])
       });

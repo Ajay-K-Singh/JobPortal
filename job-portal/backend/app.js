@@ -33,6 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.post("/api/post-job", (req, res) => {
+  console.log(req.body.keySkills);
   const newJobPosting = new JobPost({
     jobTitle: req.body.jobTitle,
     nameOfCompany: req.body.nameOfCompany,
@@ -70,9 +71,9 @@ app.get("/api/google-places", (req, res) => {
   axios.get(url).then(response => res.send(response.data)).catch(err => console.log(err));
 });
 
-app.get("/api/google-places", (req, res) => {
-  const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.query.location}&types=(cities)&language=pt_BR&key=${key}`
-  axios.get(url).then(response => res.send(response.data)).catch(err => console.log(err));
+app.get("/api/suggest-companies", (req, res) => {
+	const url = `https://autocomplete.clearbit.com/v1/companies/suggest?query=${req.query.nameOfCompany}`;
+	axios.get(url).then(response => res.send(response.data)).catch(err => console.log(err));
 });
 
 app.get("/api/suggest-skills", (req, res) => {

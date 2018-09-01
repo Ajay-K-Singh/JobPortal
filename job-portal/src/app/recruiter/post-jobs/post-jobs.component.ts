@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PostJob } from '../../models/post-job.model';
 import { JobPostingService } from '../../services/job-posting.service';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -16,13 +16,13 @@ export class PostJobsComponent implements OnInit {
   locationPlaceholder = "Location of the Job";
   nameOfCompanyLabel = "Name Of Copmany";
   companyInfo: object;
+  skillSet = [];
   constructor(public jobPostingService: JobPostingService) { }
 
   ngOnInit() {
     this.jobPostForm = new FormGroup({
       'jobTitle': new FormControl(null, Validators.required),
       'experienceRange': new FormControl(null, Validators.required),
-      'keySkills': new FormControl(null, Validators.required),
       'jobDescription': new FormControl(null, Validators.required),
       'salary': new FormControl(null, Validators.required)
     });
@@ -40,6 +40,10 @@ export class PostJobsComponent implements OnInit {
     }
   }
 
+  private setSelectedSkillSet(event): void {
+    this.skillSet = event.skillSet;
+  }
+
   onSubmit() {
     const form = this.jobPostForm;
     console.log(form);
@@ -52,13 +56,12 @@ export class PostJobsComponent implements OnInit {
       nameOfCompany: this.companyInfo,
       experienceRange: form.value.experienceRange,
       location: form.value.location['location'],
-      keySkills: form.value.keySkills,
+      keySkills: this.skillSet,
       jobDescription: form.value.jobDescription,
       salary: form.value.salary
     }
-    console.log(jobPost.nameOfCompany);
     this.jobPostingService.addJobPosting(jobPost.id, jobPost.jobTitle, 
       jobPost.nameOfCompany,jobPost.experienceRange, jobPost.location, jobPost.keySkills, jobPost.jobDescription, jobPost.salary);
-    form.reset();
+    // form.reset();
   }
 }

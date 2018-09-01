@@ -8,7 +8,7 @@ import {Component, Input} from '@angular/core';
 export class ChipListComponent {
 	@Input() skills;
   selectable = true;
-  removable = true;
+  @Input() removable = true;
 	
 	remove(skill) {
     const index = this.skills.indexOf(skill);

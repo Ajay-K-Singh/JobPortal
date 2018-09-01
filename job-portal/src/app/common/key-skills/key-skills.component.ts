@@ -19,6 +19,7 @@ export class KeySkillsComponent implements OnInit, OnDestroy {
   private form: FormGroup;
   predictionFilled: boolean = false;
   private skillSuggestions:  Subscription;
+  @Output() private selectedSkillSet = new EventEmitter<any>();
   private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 	constructor(private fb: FormBuilder, public skillsService: SkillsOpenApiService) { 
 		this.form = this.fb.group({
@@ -55,17 +56,8 @@ export class KeySkillsComponent implements OnInit, OnDestroy {
     }
     this.skillsService.suggestSkills(partialSkill);
     this.skillSuggestions = this.skillsService.getPredictionsUpdateListener().subscribe((skills: Skills[]) => {
-      console.log(skills);
       this.skills = skills;
     });
-  }
-
-  onAddSkills() {
-    this.addSkillsToArray(this.form.value['keySkills']);
-  }
-
-  onBlurMethod() {
-		this.addSkillsToArray(this.form.value['keySkills'])
   }
 
   addSkillsToArray(skill) {
@@ -76,6 +68,10 @@ export class KeySkillsComponent implements OnInit, OnDestroy {
     this.skills = [];
     this.predictionFilled = false;
     event.preventDefault();
+  }
+
+  setSelectedSkillSet() {
+    this.selectedSkillSet.emit({skillSet: this.skillsChipListArray});
   }
 
   ngOnDestroy() {

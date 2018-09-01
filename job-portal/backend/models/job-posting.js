@@ -5,7 +5,7 @@ const jobPostSchema = mongoose.Schema({
     nameOfCompany: { type: Object },
     experienceRange: { type: String },
     location: { type: String },
-    keySkills: { type: String },
+    keySkills: { type: Object },
     jobDescription: { type: String },
     salary: {type: String}
 });
