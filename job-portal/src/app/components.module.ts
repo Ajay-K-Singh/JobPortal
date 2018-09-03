@@ -20,6 +20,10 @@ import { CompanyAutocompleteComponent } from './common/company-auto-suggestions/
 import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobseeker-listings.component';
 import { KeySkillsComponent } from './common/key-skills/key-skills.component';
 import { ChipListComponent } from './common/key-skills/chip-list/chip-list.component';
+import { LoginRegisterComponent } from './login-register/login-register.component';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { LoginComponent } from '../app/login-register/login/login.component';
+import { RegisterComponent } from './login-register/register/register.component';
 @NgModule({
   imports: [
     MaterialModule,
@@ -28,7 +32,8 @@ import { ChipListComponent } from './common/key-skills/chip-list/chip-list.compo
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularSvgIconModule
   ],
   declarations: [
     LandingPageComponent,
@@ -45,7 +50,10 @@ import { ChipListComponent } from './common/key-skills/chip-list/chip-list.compo
     CompanyAutocompleteComponent,
     JobSeekerListingsComponent,
     KeySkillsComponent,
-    ChipListComponent
+    ChipListComponent,
+    LoginRegisterComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   exports: [
     LandingPageComponent,
@@ -62,7 +70,10 @@ import { ChipListComponent } from './common/key-skills/chip-list/chip-list.compo
     CompanyAutocompleteComponent,
     JobSeekerListingsComponent,
     KeySkillsComponent,
-    ChipListComponent
+    ChipListComponent,
+    LoginRegisterComponent ,
+    LoginComponent,
+    RegisterComponent 
   ]
 })
 export class ComponentsModule { }

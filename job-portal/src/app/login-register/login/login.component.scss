@@ -1,0 +1,49 @@
+mat-card {
+    height: 500px;
+    margin: 0 auto;
+    background-color: lavender;
+}
+
+mat-card-content {
+    margin-top: 2rem;
+    position: relative;
+}
+
+form {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.login-button {
+    width: 30% !important;
+}
+
+.icon-button {
+    width: 1rem !important;
+    border-radius: 20%;
+    margin-right: 1rem;
+}
+
+mat-card-footer {
+    text-align: center;
+    position: relative;
+    top: 4rem;
+}
+
+.separator {
+    width: 100%;
+    border-bottom: 1px solid grey;
+    position: relative;
+    margin-top: 2rem;
+}
+
+.separator::after {
+    content: 'Or';
+    position: absolute;
+    left: 45%;
+    top: -1rem;
+    background-color: #fff;
+    padding: 8px 10px;
+    border-radius: 50%;
+    color: grey;
+}
