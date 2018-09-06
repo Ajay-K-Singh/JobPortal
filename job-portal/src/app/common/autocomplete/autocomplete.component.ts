@@ -51,7 +51,6 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
     }
     this.googleMapsService.suggestPlaces(location);
     this.placesPredictions = this.googleMapsService.getPredictionsUpdateListener().subscribe((predictions: Places[]) => {
-      console.log(predictions);
       this.predictions = predictions;
     });
   }

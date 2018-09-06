@@ -25,6 +25,13 @@ img {
     margin-bottom: 1rem;
 }
 
+.pre-wrap {
+    white-space: pre-line;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
 .company-info,
 .skill-set {
     display: grid;

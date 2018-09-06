@@ -2,10 +2,10 @@
 <mat-card>
     <mat-tab-group>
         <mat-tab label="Login">
-            <login-form></login-form>
+            <login-form (onLogin)="onLoginRequest($event)"></login-form>
         </mat-tab>
         <mat-tab label="Sign Up">
-            <register-form></register-form>
+            <register-form (onSignUp)="onSignUpRequest($event)"></register-form>
         </mat-tab>
     </mat-tab-group>
 </mat-card>

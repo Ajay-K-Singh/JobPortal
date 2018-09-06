@@ -16,7 +16,6 @@ export class JobSeekerListingsComponent implements OnInit {
   ngOnInit() {
     this.jobPostingService.getJobPosts();
     this.jobListings = this.jobPostingService.getJobPostsUpdateUpdateListener().subscribe((jobPosts: PostJob[]) => {
-      console.log(jobPosts);
       this.jobPosts = jobPosts;
     });
   }

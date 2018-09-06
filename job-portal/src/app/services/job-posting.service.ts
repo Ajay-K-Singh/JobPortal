@@ -19,7 +19,6 @@ export class JobPostingService {
     location: string,
     keySkills: object,
     jobDescription: string, salary: string ) {
-      console.log(keySkills);
       const postJob: PostJob = {
         id: null,
         jobTitle: jobTitle,
@@ -37,7 +36,6 @@ export class JobPostingService {
 						this.jobPosts.push(postJob);
 						this.jobsPosted.next([...this.jobPosts]);
 						this.router.navigate(["/recruiter"]);
-            console.log(response);
         });
   }
   

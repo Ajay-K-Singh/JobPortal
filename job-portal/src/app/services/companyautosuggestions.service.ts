@@ -27,7 +27,7 @@ export class CompanyAutoSuggestionService {
       }))
       .subscribe((suggestions: any) => {
         this.companies = suggestions;
-        this.suggestedCompaniesResponse.next([...this.companies])
+        this.suggestedCompaniesResponse.next([...this.companies]);
       });
 	}
 

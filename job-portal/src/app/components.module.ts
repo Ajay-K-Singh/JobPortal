@@ -10,7 +10,7 @@ import { AutocompleteComponent } from './common/autocomplete/autocomplete.compon
 import { MaterialModule } from './material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpInterceptor } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { JobSeekerHeaderComponent } from './layout/job-seeker-header/job-seeker-header.component';
@@ -20,10 +20,13 @@ import { CompanyAutocompleteComponent } from './common/company-auto-suggestions/
 import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobseeker-listings.component';
 import { KeySkillsComponent } from './common/key-skills/key-skills.component';
 import { ChipListComponent } from './common/key-skills/chip-list/chip-list.component';
-import { LoginRegisterComponent } from './login-register/login-register.component';
+import { AuthorizationComponent } from './auth/auth.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { LoginComponent } from '../app/login-register/login/login.component';
-import { RegisterComponent } from './login-register/register/register.component';
+import { LoginComponent } from '../app/auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { AuthorizationInterceptor } from './services/authorization.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 @NgModule({
   imports: [
     MaterialModule,
@@ -51,7 +54,7 @@ import { RegisterComponent } from './login-register/register/register.component'
     JobSeekerListingsComponent,
     KeySkillsComponent,
     ChipListComponent,
-    LoginRegisterComponent,
+    AuthorizationComponent,
     LoginComponent,
     RegisterComponent
   ],
@@ -71,7 +74,7 @@ import { RegisterComponent } from './login-register/register/register.component'
     JobSeekerListingsComponent,
     KeySkillsComponent,
     ChipListComponent,
-    LoginRegisterComponent ,
+    AuthorizationComponent ,
     LoginComponent,
     RegisterComponent 
   ]

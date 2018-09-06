@@ -9,15 +9,15 @@ import { JobSeekerLayoutComponent } from './layout/job-seeker-layout/job-seeker-
 import { JobSearchFormComponent } from './job-seeker/job-search-form/job-search-form.component';
 import { JobListingsComponent } from './recruiter/job-listings/job-listings.component';
 import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobseeker-listings.component';
-import { LoginRegisterComponent } from './login-register/login-register.component';
+import { AuthorizationComponent } from './auth/auth.component';
 const routes: Routes = [
     {
         path: '',
         component:  LandingPageComponent
     },
     {
-      path: 'login-register',
-      component:  LoginRegisterComponent
+      path: 'authorize',
+      component:  AuthorizationComponent
     },
     {
         path: 'jobs',
