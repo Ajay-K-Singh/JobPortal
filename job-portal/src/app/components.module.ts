@@ -24,8 +24,6 @@ import { AuthorizationComponent } from './auth/auth.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { LoginComponent } from '../app/auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { AuthorizationInterceptor } from './services/authorization.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   imports: [
