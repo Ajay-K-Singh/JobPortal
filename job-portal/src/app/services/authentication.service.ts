@@ -10,16 +10,18 @@ import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
 export class AuthenticationService {
   private authenticationStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
+  private isLoadingListener = new Subject<boolean>();
+  private isLoading = false;
   navigatedFrom: string;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute,) {
     this.route.queryParams.subscribe(params => {
       this.navigatedFrom = params.route;
     });
-    if (localStorage.getItem('currentUser')) {
-      this.authenticationStatusListener.next(true);
+    if (localStorage['currentUser'] !== "null") {
       this.isAuthenticated = true;
-      if (this.navigatedFrom) {
+      this.authenticationStatusListener.next(true);
+      if(this.navigatedFrom) {
         this.router.navigate([`/${this.navigatedFrom}`]);
       }
     }
@@ -29,9 +31,18 @@ export class AuthenticationService {
     return this.isAuthenticated;
   }
 
+  getIsLoading() {
+    return this.isLoading;
+  }
+
+  getIsLoadingListener() {
+    return this.isLoadingListener.asObservable();
+  }
+
   getAuthenticationStatusListener() {
     return this.authenticationStatusListener.asObservable();
   }
+
   createUser(email: string, password: string) {
     const userData: AuthModel = { 
       email: email,
@@ -44,6 +55,8 @@ export class AuthenticationService {
   }
 
   logInUser(email: string, password: string) {
+    this.isLoading = true;
+    this.isLoadingListener.next(true);
     const userData: AuthModel = { 
       email: email,
       password: password
@@ -54,16 +67,22 @@ export class AuthenticationService {
       if (token) {
         localStorage.setItem('currentUser', token);
         this.isAuthenticated = true;
-        this.authenticationStatusListener.next(true);
+        this.isLoading = false;
+        this.isLoadingListener.next(false);
         this.router.navigate([`/${this.navigatedFrom}`]);
+        this.authenticationStatusListener.next(true);
       }
     })
   }
 
   logOut() {
+    this.isLoading = true;
+    this.isLoadingListener.next(true);
     localStorage.setItem('currentUser', null);
     this.isAuthenticated = false;
     this.authenticationStatusListener.next(false);
+    this.isLoading = false;
+    this.isLoadingListener.next(false);
     this.router.navigate([`/`]);
   }
 }
