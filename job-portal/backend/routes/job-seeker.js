@@ -3,6 +3,8 @@ const JobSeeker = require("../models/job-seeker");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
+const JobPost = require('../models/job-posting');
+
 
 router.post("/signup", (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
@@ -61,5 +63,14 @@ router.post("/login", (req, res, next) => {
                 expiresIn: "3600"
             })
         })
+});
+
+router.get("/job-posts", (req, res) => {
+  JobPost.find().then(documents => {
+    res.status(200).json({
+      message: "Jobs fetched successfully!",
+      jobPosts: documents
+    });
+  });
 });
 module.exports = router;

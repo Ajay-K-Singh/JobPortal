@@ -36,39 +36,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/api/post-job", ensureAuthentication, (req, res) => {
-  console.log(req.body.keySkills);
-  const newJobPosting = new JobPost({
-    jobTitle: req.body.jobTitle,
-    nameOfCompany: req.body.nameOfCompany,
-    experienceRange: req.body.experienceRange,
-    location: req.body.location,
-    keySkills: req.body.keySkills,
-    jobDescription: req.body.jobDescription,
-    salary: req.body.salary
-  });
-  newJobPosting.save().then(jobPosted => {
-    res.status(201).json({
-      message: 'Job Added Successfully'
-    });
-  });
-});
-
-app.get("/api/job-posts", (req, res) => {
-  JobPost.find().then(documents => {
-    res.status(200).json({
-      message: "Jobs fetched successfully!",
-      jobPosts: documents
-    });
-  });
-});
-
-app.delete("/api/job-posts/:id", ensureAuthentication, (req, res) => {
-  JobPost.deleteOne({ _id: req.params.id }).then(result => {
-    res.status(200).json({ message: "Post deleted!" });
-  });
-});
-
 app.get("/api/google-places", (req, res) => {
   const key = 'AIzaSyA-HA9qMeaypI5YkDBfOJQi_wWFArXjxOg';
   const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.query.location}&types=(cities)&language=pt_BR&key=${key}`

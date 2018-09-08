@@ -2,7 +2,9 @@ const express = require('express');
 const Recruiter = require("../models/recruiter");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const JobPost = require('../models/job-posting');
 const router = express.Router();
+const ensureAuthentication = require('../middlewares/ensure-authentication');
 
 router.post("/signup", (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
@@ -58,8 +60,42 @@ router.post("/login", (req, res, next) => {
             res.status(200).json({
                 message: 'Authenticated Successfully',
                 token: token,
+                fetchedUser,
                 expiresIn: "3600"
             })
         })
+});
+
+router.post("/post-job", ensureAuthentication, (req, res) => {
+  const newJobPosting = new JobPost({
+    jobTitle: req.body.jobTitle,
+    nameOfCompany: req.body.nameOfCompany,
+    experienceRange: req.body.experienceRange,
+    location: req.body.location,
+    keySkills: req.body.keySkills,
+    jobDescription: req.body.jobDescription,
+    salary: req.body.salary,
+    recruiterInfo: req.recruiterData
+  });
+  newJobPosting.save().then(jobPosted => {
+    res.status(201).json({
+      message: 'Job Added Successfully'
+    });
+  });
+});
+
+router.get("/job-posts", ensureAuthentication, (req, res) => {
+  JobPost.find({ recruiterInfo: req.recruiterData.userId }).then(documents => {
+    res.status(200).json({
+      message: "Jobs fetched successfully!",
+      jobPosts: documents
+    });
+  });
+});
+
+router.delete("/job-posts/:id", ensureAuthentication, (req, res) => {
+  JobPost.deleteOne({ _id: req.params.id }).then(result => {
+    res.status(200).json({ message: "Post deleted!" });
+  });
 });
 module.exports = router;

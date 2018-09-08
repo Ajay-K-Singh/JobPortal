@@ -17,3 +17,8 @@ a {
 .header {
     font-size: 30px;
 }
+
+.links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}

@@ -46,7 +46,7 @@ export class AuthenticationService {
       email: email,
       password: password
     }
-    const requestPath = this.getModes()[`${this.navigatedFrom}`]
+    const requestPath = this.getModes()[`${this.navigatedFrom}`];
     this.http.post(`http://localhost:3000/api/${requestPath}/signup`, userData)
       .subscribe(response => {
         console.log(response);
@@ -147,7 +147,7 @@ export class AuthenticationService {
     }, duration * 1000);
   }
 
-  private getModes() {
+  getModes() {
     return {
       jobs: 'job-seeker',
       recruiter: 'recruiter'
