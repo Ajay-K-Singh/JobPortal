@@ -3,7 +3,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const JobPost = require('./models/job-posting');
 const axios = require('axios');
-const authRoute = require("./routes/authentication");
+const jobSeekerRoute = require("./routes/job-seeker");
+const recruiterRoute = require("./routes/recruiter");
 const ensureAuthentication = require('./middlewares/ensure-authentication');
 
 const app = express();
@@ -84,7 +85,7 @@ app.get("/api/suggest-skills", (req, res) => {
   axios.get(url).then(response => res.send(response.data)).catch(err => console.log(err));
 });
 
-app.use("/api/user", authRoute);
-
+app.use("/api/job-seeker", jobSeekerRoute);
+app.use("/api/recruiter", recruiterRoute);
 
 module.exports = app;

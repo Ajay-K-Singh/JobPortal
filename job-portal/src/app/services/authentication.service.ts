@@ -46,7 +46,8 @@ export class AuthenticationService {
       email: email,
       password: password
     }
-    this.http.post("http://localhost:3000/api/user/signup", userData)
+    const requestPath = this.getModes()[`${this.navigatedFrom}`]
+    this.http.post(`http://localhost:3000/api/${requestPath}/signup`, userData)
       .subscribe(response => {
         console.log(response);
       })
@@ -83,7 +84,8 @@ export class AuthenticationService {
       email: email,
       password: password
     }
-    this.http.post<{token: string, expiresIn: number}>("http://localhost:3000/api/user/login", userData)
+    const requestPath = this.getModes()[`${this.navigatedFrom}`];
+    this.http.post<{token: string, expiresIn: number}>(`http://localhost:3000/api/${requestPath}/login`, userData)
     .subscribe(response => {
       const token = response.token;
       if (token) {
@@ -143,5 +145,12 @@ export class AuthenticationService {
     this.tokenTimer = setTimeout(() => {
       this.logOut();
     }, duration * 1000);
+  }
+
+  private getModes() {
+    return {
+      jobs: 'job-seeker',
+      recruiter: 'recruiter'
+    }
   }
 }

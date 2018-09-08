@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require("../models/user");
+const Recruiter = require("../models/recruiter");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/signup", (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
-            const user = new User({
+            const user = new Recruiter({
                 email: req.body.email,
                 password: hash
             });
@@ -33,7 +33,7 @@ router.post("/signup", (req, res, next) => {
 
 router.post("/login", (req, res, next) => {
     let fetchedUser;
-    User.findOne({ email: req.body.email })
+    Recruiter.findOne({ email: req.body.email })
         .then(user => {
             if (!user) {
                 res.status(401).json({
