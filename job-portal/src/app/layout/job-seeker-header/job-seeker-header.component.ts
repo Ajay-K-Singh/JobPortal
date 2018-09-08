@@ -24,7 +24,9 @@ export class JobSeekerHeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.authenticationSub.unsubscribe();
+    if (this.authenticationSub) {
+      this.authenticationSub.unsubscribe();
+    }
   }
 
 }

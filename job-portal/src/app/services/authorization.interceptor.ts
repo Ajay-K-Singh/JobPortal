@@ -4,8 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthorizationInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const token = localStorage.getItem('currentUser');
-    console.log(token);
+    const token = localStorage.getItem('token');
     const authRequest = req.clone({
       headers: req.headers.set("authorization", `Bearer ${token}`)
     });

@@ -10,14 +10,15 @@ import { JobSearchFormComponent } from './job-seeker/job-search-form/job-search-
 import { JobListingsComponent } from './recruiter/job-listings/job-listings.component';
 import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobseeker-listings.component';
 import { AuthorizationComponent } from './auth/auth.component';
+import { AuthenticationGuard } from './services/auth.guard';
 const routes: Routes = [
     {
         path: '',
-        component:  LandingPageComponent
+        component:  LandingPageComponent,
     },
     {
       path: 'authorize',
-      component:  AuthorizationComponent
+      component:  AuthorizationComponent,
     },
     {
         path: 'jobs',
@@ -41,14 +42,16 @@ const routes: Routes = [
         },
         {
           path: 'post-job',
-          component: PostJobsComponent
+          component: PostJobsComponent,
+          canActivate: [AuthenticationGuard]
         }
       ]
     }
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [AuthenticationGuard]
 })
 export class AppRoutingModule {
 

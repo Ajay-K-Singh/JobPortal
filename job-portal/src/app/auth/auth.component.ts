@@ -11,17 +11,20 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   isLoadingStatus = false;
   private isLoadingSub: Subscription;
   constructor(public authenticationService: AuthenticationService ) { }
-
+  
   ngOnInit() {
     this.isLoadingStatus = this.authenticationService.getIsLoading();
     this.isLoadingSub = this.authenticationService.getIsLoadingListener()
       .subscribe(isLoading => {
         this.isLoadingStatus = isLoading;
     });
+    this.authenticationService.autoAuthenticateUser();
   }
 
   ngOnDestroy() {
-    this.isLoadingSub.unsubscribe();
+    if(this.isLoadingSub) {
+      this.isLoadingSub.unsubscribe();
+    }
   }
 
   onSubmit() {

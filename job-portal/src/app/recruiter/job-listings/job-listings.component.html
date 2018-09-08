@@ -10,7 +10,7 @@
                 <h3><b>{{jobPost.jobTitle}}</b></h3>
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <div>{{jobPost.jobDescription}}</div>
+        <div class="pre-wrap">{{jobPost.jobDescription}}</div>
         <mat-action-row>
             <a mat-button color="primary">Edit</a>
             <button mat-button color="warn" (click)="onDeleteJobPost(jobPost.id)">Delete</button>
