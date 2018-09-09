@@ -27,16 +27,16 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
-    console.log('Yes');
-  }
-
   private onLoginRequest(event) {
+    const email = event.value.emailOrUserName;
+    const password = event.value.password;
     this.authenticationService.logInUser(event.value.emailOrUserName, event.value.password);
   }
 
   private onSignUpRequest(event) {
-    this.authenticationService.createUser(event.value.emailOrUserName, event.value.password);
+    const email = event.value.emailOrUserName;
+    const password = event.value.password;
+    this.authenticationService.createUser(email, password);
   }
 
 }

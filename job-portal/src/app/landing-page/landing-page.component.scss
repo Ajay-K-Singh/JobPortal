@@ -13,7 +13,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(#ffcccc, #66c2ff);
+    background-color: hsl(280deg, 80%, 80%);
 }
 
 .recruiter-button {
@@ -22,6 +22,27 @@
     width: 300px;
     margin-left: 40%;
     border-radius: 10px;
+    box-shadow: 20px 20px 50px 15px grey !important;
+    border: none;
+    color: honeydew;
+    position: relative;
+    top: 30%;
+    background-color: deepskyblue;
+    color: aliceblue;
+}
+
+.recruiter-button:hover,
+.jobseeker-button:hover {
+    animation-name: colorofbutton;
+    animation-duration: 2000ms;
+    animation-fill-mode: forwards;
+}
+
+@keyframes colorofbutton {
+    100% {
+        background-color: blue;
+        color: white;
+    }
 }
 
 .jobseeker-button {
@@ -29,7 +50,14 @@
     height: 200px;
     width: 300px;
     margin-left: 20%;
+    border: none;
     border-radius: 10px;
+    box-shadow: 20px 20px 50px 15px grey !important;
+    color: honeydew;
+    position: relative;
+    top: 30%;
+    color: aliceblue;
+    background-color: darkseagreen;
 }
 
 .landing-question {

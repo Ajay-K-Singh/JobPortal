@@ -41,12 +41,13 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
         }
       );
   }
+
   ngOnInit() {
     this.formReady.emit(this.form);
   }
 
   onChangeLocation(location) {
-    if ( this.predictionFilled || location == '' ) {
+    if (this.predictionFilled || location == '') {
       return;
     }
     this.googleMapsService.suggestPlaces(location);
@@ -56,7 +57,7 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.placesPredictions){
+    if (this.placesPredictions){
       this.placesPredictions.unsubscribe();
      }
   }

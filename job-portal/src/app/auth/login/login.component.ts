@@ -12,9 +12,9 @@ export class LoginComponent implements OnInit {
   @Output() onLogin: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   ngOnInit() {
     this.loginForm = new FormGroup({
-      'emailOrUserName': new FormControl(null, Validators.email),
-      'password': new FormControl(null, Validators.required)
-    })
+      'emailOrUserName': new FormControl(null),
+      'password': new FormControl(null)
+    });
   }
 
   onLoginClick () {

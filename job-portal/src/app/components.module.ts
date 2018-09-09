@@ -24,7 +24,7 @@ import { AuthorizationComponent } from './auth/auth.component';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { LoginComponent } from '../app/auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-
+import { SocialButtonsComponent } from './common/social-login-buttons/social-buttons.component';
 @NgModule({
   imports: [
     MaterialModule,
@@ -54,7 +54,8 @@ import { RegisterComponent } from './auth/register/register.component';
     ChipListComponent,
     AuthorizationComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SocialButtonsComponent
   ],
   exports: [
     LandingPageComponent,
@@ -74,7 +75,8 @@ import { RegisterComponent } from './auth/register/register.component';
     ChipListComponent,
     AuthorizationComponent ,
     LoginComponent,
-    RegisterComponent 
+    RegisterComponent,
+    SocialButtonsComponent
   ]
 })
 export class ComponentsModule { }

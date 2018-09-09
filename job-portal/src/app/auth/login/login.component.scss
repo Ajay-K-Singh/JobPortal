@@ -47,3 +47,21 @@ mat-card-footer {
     border-radius: 50%;
     color: grey;
 }
+
+.separator {
+    width: 100%;
+    border-bottom: 1px solid grey;
+    position: relative;
+    margin-top: 2rem;
+}
+
+.separator::after {
+    content: 'Or';
+    position: absolute;
+    left: 45%;
+    top: -1rem;
+    background-color: #fff;
+    padding: 8px 10px;
+    border-radius: 50%;
+    color: grey;
+}
