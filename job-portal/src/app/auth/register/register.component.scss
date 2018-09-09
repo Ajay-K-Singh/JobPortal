@@ -14,10 +14,6 @@ form {
     grid-template-rows: 1fr 1fr;
 }
 
-.login-button {
-    width: 30% !important;
-}
-
 mat-card-footer {
     text-align: center;
     position: relative;
@@ -25,23 +21,30 @@ mat-card-footer {
 }
 
 .signup-button {
-    width: 30% !important;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .separator {
     width: 100%;
-    border-bottom: 1px solid grey;
+    border-bottom: 2px solid grey;
     position: relative;
-    margin-top: 2rem;
+    margin-top: 3rem;
 }
 
 .separator::after {
     content: 'Or';
     position: absolute;
-    left: 45%;
+    left: 47%;
     top: -1rem;
     background-color: #fff;
     padding: 8px 10px;
     border-radius: 50%;
     color: grey;
+}
+
+.passwords {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
 }

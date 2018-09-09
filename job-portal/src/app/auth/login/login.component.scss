@@ -15,7 +15,8 @@ form {
 }
 
 .login-button {
-    width: 30% !important;
+    width: 100% !important;
+    margin: 0 auto;
 }
 
 .icon-button {
@@ -32,15 +33,15 @@ mat-card-footer {
 
 .separator {
     width: 100%;
-    border-bottom: 1px solid grey;
+    border-bottom: 2px solid grey !important;
     position: relative;
-    margin-top: 2rem;
+    margin-top: 3rem !important;
 }
 
 .separator::after {
     content: 'Or';
     position: absolute;
-    left: 45%;
+    left: 47% !important;
     top: -1rem;
     background-color: #fff;
     padding: 8px 10px;

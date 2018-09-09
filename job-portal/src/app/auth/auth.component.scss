@@ -17,3 +17,9 @@ mat-card {
     height: 100%;
     background-color: hsl(280deg, 80%, 80%);
 }
+
+::ng-deep .mat-tab-labels {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+}
