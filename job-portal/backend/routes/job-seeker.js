@@ -16,7 +16,7 @@ router.post("/signup", (req, res, next) => {
             jobSeeker.save()
                 .then(result => {
                     res.status(201).json({
-                        message: 'User Created',
+                        message: 'Sign Up Successful. Please Login now!',
                         result: result
                     });
                 })
@@ -35,6 +35,7 @@ router.post("/signup", (req, res, next) => {
 
 router.post("/login", (req, res, next) => {
     let fetchedUser;
+    console.log(req.body.email);
     JobSeeker.findOne({ email: req.body.email })
         .then(user => {
             if (!user) {
@@ -60,9 +61,10 @@ router.post("/login", (req, res, next) => {
             res.status(200).json({
                 message: 'Authenticated Successfully',
                 token: token,
+                fetchedUser,
                 expiresIn: "3600"
             })
-        })
+        });
 });
 
 router.get("/job-posts", (req, res) => {

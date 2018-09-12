@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CustomErrorStateMatcher } from '../../material/error-state-matcher';
 
 @Component({
   selector: 'login-form',
@@ -10,16 +11,23 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   @Output() onLogin: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  matcher = new CustomErrorStateMatcher();
+  constructor(private formBuilder: FormBuilder) {
+    this.createForm();
+  }
   ngOnInit() {
-    this.loginForm = new FormGroup({
-      'emailOrUserName': new FormControl(null),
-      'password': new FormControl(null)
+  }
+  createForm() {
+    this.loginForm =  this.formBuilder.group({
+      emailOrUserName: ['', [Validators.email, Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 
   onLoginClick () {
     if (this.loginForm.valid) {
       this.onLogin.emit(this.loginForm);
+      this.createForm();
     }
   }
 }

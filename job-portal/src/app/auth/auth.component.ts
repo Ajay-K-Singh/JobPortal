@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 @Component({
@@ -10,6 +10,9 @@ import { AuthenticationService } from '../services/authentication.service';
 export class AuthorizationComponent implements OnInit, OnDestroy {
   isLoadingStatus = false;
   private isLoadingSub: Subscription;
+  selected = new FormControl(0);
+  didSignUp: boolean = false;
+  private didSignUpSub: Subscription;
   constructor(public authenticationService: AuthenticationService ) { }
   
   ngOnInit() {
@@ -17,6 +20,14 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     this.isLoadingSub = this.authenticationService.getIsLoadingListener()
       .subscribe(isLoading => {
         this.isLoadingStatus = isLoading;
+    });
+    this.didSignUp = this.authenticationService.getDidSignUp();
+    this.didSignUpSub = this.authenticationService.getDidSignUpListener()
+      .subscribe(didSignUp => {
+        this.didSignUp = didSignUp;
+        if (this.didSignUp) {
+          this.selected.setValue(0);
+        }
     });
     this.authenticationService.autoAuthenticateUser();
   }
@@ -30,7 +41,7 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   private onLoginRequest(event) {
     const email = event.value.emailOrUserName;
     const password = event.value.password;
-    this.authenticationService.logInUser(event.value.emailOrUserName, event.value.password);
+    this.authenticationService.logInUser(email, password);
   }
 
   private onSignUpRequest(event) {

@@ -1,0 +1,8 @@
+<div class="message {{messageType}}" *ngIf="message" id="messageDiv">
+    <mat-card>
+        <div class="message-pos">
+            <p class="message">{{message}}</p>
+            <span class="close" (click)="onClose()"></span>
+        </div>
+    </mat-card>
+</div>

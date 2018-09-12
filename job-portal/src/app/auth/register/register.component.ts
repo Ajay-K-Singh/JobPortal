@@ -12,17 +12,20 @@ export class RegisterComponent implements OnInit {
   @Output() private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output() onSignUp: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   matcher = new CustomErrorStateMatcher();
-  passwordNotSame: boolean = false;
   constructor(private formBuilder: FormBuilder) {
-    this.registerForm =  formBuilder.group({
+    this.createForm();
+  }
+  ngOnInit() {
+  }
+
+  createForm() {
+    this.registerForm =  this.formBuilder.group({
       emailOrUserName: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.required]],
       confirmPassword: ['']
     }, { 
       validator:  this.checkPasswords
     })
-  }
-  ngOnInit() {
   }
 
   checkPasswords(group: FormGroup) {
@@ -34,7 +37,7 @@ export class RegisterComponent implements OnInit {
   onSignupClick() {
     if (this.registerForm.valid) {
       this.onSignUp.emit(this.registerForm);
-      this.registerForm.reset();
+      this.createForm();
     }
   }
 }

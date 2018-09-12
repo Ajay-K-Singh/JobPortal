@@ -1,0 +1,81 @@
+mat-card {
+    position: absolute;
+    width: 95%;
+    left: 0;
+    right: 0;
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #64DD17;
+    opacity: 0.7;
+    z-index: 99;
+    height: 0.5%;
+    animation-name: slideDown;
+    animation-duration: 5s;
+}
+
+@keyframes slideDown {
+    from {
+        -webkit-transform: translate(0, -10rem);
+    }
+    10% {
+        -webkit-transform: translate(0, 0.1rem);
+    }
+    12% {
+        -webkit-transform: translate(0, 0.1rem);
+    }
+    16% {
+        -webkit-transform: translate(0, 0.1rem);
+    }
+    80% {
+        -webkit-transform: translate(0, 0.1rem);
+    }
+    85% {
+        -webkit-transform: translate(0, 0.1rem);
+    }
+    90% {
+        -webkit-transform: translate(0, 0.05rem);
+    }
+    100% {
+        -webkit-transform: translate(0, 0);
+    }
+}
+
+.close {
+    position: relative;
+    float: right;
+    top: -3.7rem;
+    right: 1rem;
+    color: white;
+    height: 1rem;
+    width: 2rem;
+}
+
+.close:hover {
+    opacity: 1;
+}
+
+.close:before,
+.close:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 1rem;
+    width: 0.2rem;
+    background-color: white;
+}
+
+.close:before {
+    transform: rotate(45deg);
+}
+
+.close:after {
+    transform: rotate(-45deg);
+}
+
+.message {
+    position: relative;
+    top: -1.5rem;
+    color: white;
+    text-align: center
+}

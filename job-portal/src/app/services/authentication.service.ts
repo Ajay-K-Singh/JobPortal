@@ -1,32 +1,36 @@
 import { Injectable } from '@angular/core';
 import { AuthModel } from '../models/authorization.model';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthenticationService {
-  private authenticationStatusListener = new Subject<boolean>();
+  private authenticationStatusListener = new Subject<any>();
   private isAuthenticated = false;
+  private message: string; 
   private isLoadingListener = new Subject<boolean>();
   private isLoading = false;
   private token: string;
   private tokenTimer: any;
+  private didSignUp: boolean = false;
+  private didSignUpListener = new Subject<boolean>();
+  private messageObject = {
+      message: 'Hello, Welcome to next gen Job Portal!',
+      type: 'success'
+  }
+  private messageObjectListener = new BehaviorSubject<any>(this.messageObject);
   loggedInAs: string;
   navigatedFrom: string;
   previousUrl: string;
 
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute,) {
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {
         this.navigatedFrom = params.route;
         this.autoAuthenticateUser();
     });
-  }
-
-  getAuth() {
-    return this.isAuthenticated;
   }
 
   getIsLoading() {
@@ -36,21 +40,56 @@ export class AuthenticationService {
   getIsLoadingListener() {
     return this.isLoadingListener.asObservable();
   }
+  getAuth() {
+    return this.isAuthenticated;
+  }
 
   getAuthenticationStatusListener() {
     return this.authenticationStatusListener.asObservable();
   }
+
+  getDidSignUp() {
+    return this.didSignUp;
+  }
+  
+  getDidSignUpListener() {
+    return this.didSignUpListener.asObservable();
+  }
+
+  getMessageObject() {
+    return this.messageObject;
+  }
+
+  getMessageObjectListener() {
+    return this.messageObjectListener.asObservable();
+  }
+
 
   createUser(email: string, password: string) {
     const userData: AuthModel = { 
       email: email,
       password: password
     }
+    this.isLoading = true;
+    this.isLoadingListener.next(true);
     const requestPath = this.getModes()[`${this.navigatedFrom}`];
     this.http.post(`http://localhost:3000/api/${requestPath}/signup`, userData)
       .subscribe(response => {
         console.log(response);
-      })
+        this.messageObject.message = (<any>response).message;
+        this.messageObject.type = 'success';
+        this.messageObjectListener.next(this.messageObject);
+        this.didSignUp = true;
+        this.didSignUpListener.next(true);
+      }, error => {
+        this.isLoading = false;
+        this.isLoadingListener.next(false);
+      });
+      this.messageObject.message = '';
+      this.messageObject.type = '';
+      this.messageObjectListener.next(this.messageObject);
+      this.didSignUp = false;
+      this.didSignUpListener.next(false);
   }
 
   autoAuthenticateUser() {
@@ -80,6 +119,7 @@ export class AuthenticationService {
   logInUser(email: string, password: string) {
     this.isLoading = true;
     this.isLoadingListener.next(true);
+    console.log(email, password);
     const userData: AuthModel = { 
       email: email,
       password: password

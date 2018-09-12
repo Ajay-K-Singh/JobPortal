@@ -1,4 +1,5 @@
 export interface Recruiter {
   id: string,
-  email: string
+  email: string,
+  message: string
 }
