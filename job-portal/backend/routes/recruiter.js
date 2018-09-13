@@ -34,7 +34,8 @@ router.post("/login", (req, res, next) => {
       .then(user => {
         if (!user) {
             res.status(401).json({
-                message: 'User does not exist. Please Sign Up and then Log in.'
+                message: 'User does not exist. Please Sign Up and then Log in.',
+                hasSignedUp: false
             });
         }
         fetchedUser = user;
