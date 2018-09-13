@@ -18,8 +18,8 @@ export class AuthenticationService {
   private didSignUp: boolean = false;
   private didSignUpListener = new Subject<boolean>();
   private messageObject = {
-      message: 'Hello, Welcome to next gen Job Portal!',
-      type: 'success'
+      message: '',
+      type: ''
   }
   private messageObjectListener = new BehaviorSubject<any>(this.messageObject);
   loggedInAs: string;
@@ -70,26 +70,62 @@ export class AuthenticationService {
       email: email,
       password: password
     }
-    this.isLoading = true;
-    this.isLoadingListener.next(true);
+    this.setLoadingListener(true);
     const requestPath = this.getModes()[`${this.navigatedFrom}`];
     this.http.post(`http://localhost:3000/api/${requestPath}/signup`, userData)
       .subscribe(response => {
-        console.log(response);
-        this.messageObject.message = (<any>response).message;
-        this.messageObject.type = 'success';
-        this.messageObjectListener.next(this.messageObject);
-        this.didSignUp = true;
-        this.didSignUpListener.next(true);
+        this.setMessageObject((<any>response).message, 'success');
+        this.setSignUpListener(true);
+        this.setLoadingListener(false);
       }, error => {
-        this.isLoading = false;
-        this.isLoadingListener.next(false);
+        if (error.message) {
+          this.setMessageObject(error.message, 'error');
+        }
       });
-      this.messageObject.message = '';
-      this.messageObject.type = '';
-      this.messageObjectListener.next(this.messageObject);
-      this.didSignUp = false;
-      this.didSignUpListener.next(false);
+      this.clearMessageObject();
+      this.setSignUpListener(false);
+  }
+
+  logInUser(email: string, password: string) {
+    this.setLoadingListener(true);
+    const userData: AuthModel = { 
+      email: email,
+      password: password
+    }
+    const requestPath = this.getModes()[`${this.navigatedFrom}`];
+    this.http.post<{token: string, expiresIn: number}>(`http://localhost:3000/api/${requestPath}/login`, userData)
+    .subscribe(response => {
+      const token = response.token;
+      if (token) {
+        const expiresInDuration = response.expiresIn;
+        this.setAuthenticationTimer(expiresInDuration);
+        this.setAuthenticationListener(true);
+        this.setLoadingListener(false);
+        const now = new Date();
+        const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+        this.SaveAuthenticationData(token, expirationDate);
+        this.navigateTo(this.navigatedFrom);
+      }
+    }, error => {
+        if (error.message) {
+          this.setMessageObject(error.message, 'error');
+        }
+        this.setMessageObject(error.error.message, 'error');
+        if (!error.hasSignedUp) {
+          this.setSignUpListener(false);
+        }
+        this.setLoadingListener(false);
+    });
+    this.clearMessageObject();
+  }
+
+  logOut() {
+    this.setLoadingListener(true);
+    this.setAuthenticationListener(false);
+    clearTimeout(this.tokenTimer);
+    this.ClearAuthenticationData();
+    this.setLoadingListener(false);
+    this.navigateTo('home');
   }
 
   autoAuthenticateUser() {
@@ -103,56 +139,48 @@ export class AuthenticationService {
       const expiresIn = authenticationInfo.expirationDate.getTime() - now.getTime();
       if (expiresIn > 0) {
       this.token = authenticationInfo.token;
-      this.isAuthenticated = true;
       this.setAuthenticationTimer(expiresIn/1000);
-      this.authenticationStatusListener.next(true);
+      this.setAuthenticationListener(true);
       if (this.isAuthenticated) {
-        this.router.navigate([`/${localStorage.getItem('loggedInAs')}`]);
+        this.navigateTo(localStorage.getItem('loggedInAs'));
+        }
       }
-      if (this.navigatedFrom) {
-        this.router.navigate([`/${this.navigatedFrom}`]);
-      }
-    }
     }
   }
 
-  logInUser(email: string, password: string) {
-    this.isLoading = true;
-    this.isLoadingListener.next(true);
-    console.log(email, password);
-    const userData: AuthModel = { 
-      email: email,
-      password: password
+  private navigateTo(route) {
+    if (route === 'home') {
+      this.router.navigate(['/']);
+    } else{
+      this.router.navigate([`/${route}`]);
     }
-    const requestPath = this.getModes()[`${this.navigatedFrom}`];
-    this.http.post<{token: string, expiresIn: number}>(`http://localhost:3000/api/${requestPath}/login`, userData)
-    .subscribe(response => {
-      const token = response.token;
-      if (token) {
-        const expiresInDuration = response.expiresIn;
-        this.setAuthenticationTimer(expiresInDuration);
-        this.isAuthenticated = true;
-        this.authenticationStatusListener.next(true);
-        this.isLoading = false;
-        this.isLoadingListener.next(false);
-        const now = new Date();
-        const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-        this.SaveAuthenticationData(token, expirationDate);
-        this.router.navigate([`/${this.navigatedFrom}`]);
-      }
-    })
   }
 
-  logOut() {
-    this.isLoading = true;
-    this.isLoadingListener.next(true);
-    this.isAuthenticated = false;
-    this.authenticationStatusListener.next(false);
-    this.isLoading = false;
-    this.isLoadingListener.next(false);
-    clearTimeout(this.tokenTimer);
-    this.ClearAuthenticationData();
-    this.router.navigate([`/`]);
+  private setMessageObject(message, type) {
+    this.messageObject.message = message;
+    this.messageObject.type = type;
+    this.messageObjectListener.next(this.messageObject);
+  }
+
+  private clearMessageObject() {
+    this.messageObject.message = '';
+    this.messageObject.type = '';
+    this.messageObjectListener.next(this.messageObject);
+  }
+
+  private setSignUpListener(didSignUp) {
+    this.didSignUp = didSignUp;
+    this.didSignUpListener.next(didSignUp);
+  }
+
+  private setAuthenticationListener(isAuthenticated) {
+    this.isAuthenticated = isAuthenticated;
+    this.authenticationStatusListener.next(isAuthenticated);
+  }
+
+  private setLoadingListener(isLoading) {
+    this.isLoading = isLoading;
+    this.isLoadingListener.next(isLoading);
   }
 
   private SaveAuthenticationData(token: string, expiration: Date) {

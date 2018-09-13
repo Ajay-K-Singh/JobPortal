@@ -1,17 +1,24 @@
 mat-card {
     position: absolute;
-    width: 95%;
+    width: 40%;
     left: 0;
     right: 0;
-    margin-top: 2%;
+    margin-top: 0.5%;
     margin-left: auto;
     margin-right: auto;
-    background-color: #64DD17;
-    opacity: 0.7;
     z-index: 99;
     height: 0.5%;
     animation-name: slideDown;
     animation-duration: 5s;
+    border-radius: 5px;
+}
+
+mat-card.error {
+    background-color: #FF1744;
+}
+
+mat-card.success {
+    background-color: #64DD17;
 }
 
 @keyframes slideDown {
@@ -41,14 +48,20 @@ mat-card {
     }
 }
 
+mat-card.success {
+    animation: fade 0s 4s forwards;
+}
+
+@keyframes fade {
+    to {
+        visibility: hidden;
+    }
+}
+
 .close {
     position: relative;
-    float: right;
-    top: -3.7rem;
-    right: 1rem;
     color: white;
-    height: 1rem;
-    width: 2rem;
+    top: 1rem;
 }
 
 .close:hover {
@@ -74,8 +87,12 @@ mat-card {
 }
 
 .message {
+    color: white;
+}
+
+.message-pos {
+    display: grid;
+    grid-template-columns: 20fr 1fr;
     position: relative;
     top: -1.5rem;
-    color: white;
-    text-align: center
 }

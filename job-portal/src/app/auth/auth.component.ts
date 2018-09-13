@@ -28,6 +28,9 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
         if (this.didSignUp) {
           this.selected.setValue(0);
         }
+        if (!this.didSignUp) {
+          this.selected.setValue(1);
+        }
     });
     this.authenticationService.autoAuthenticateUser();
   }

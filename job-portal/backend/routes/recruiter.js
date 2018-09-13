@@ -16,7 +16,7 @@ router.post("/signup", (req, res, next) => {
             user.save()
                 .then(result => {
                     res.status(201).json({
-                        message: 'User Created',
+                        message: 'Sign Up Successful. Please Login now!',
                         result: result
                     });
                 })
@@ -39,7 +39,7 @@ router.post("/login", (req, res, next) => {
         .then(user => {
             if (!user) {
                 res.status(401).json({
-                    message: 'Authentication failed'
+                    message: 'User does not exist. Please Sign Up and then Log in.'
                 });
             }
             fetchedUser = user;
@@ -48,7 +48,7 @@ router.post("/login", (req, res, next) => {
         .then(result => {
             if (!result) {
                 return res.status(401).json({
-                    message: 'Authentication failed'
+                    message: 'User email or password not correct.'
                 });
             }
             const token = jwt.sign({
@@ -64,6 +64,11 @@ router.post("/login", (req, res, next) => {
                 expiresIn: "3600"
             })
         })
+        .catch(err => {
+          res.status(500).json({
+              error: err
+          })
+      });
 });
 
 router.post("/post-job", ensureAuthentication, (req, res) => {
@@ -81,6 +86,11 @@ router.post("/post-job", ensureAuthentication, (req, res) => {
     res.status(201).json({
       message: 'Job Added Successfully'
     });
+  })
+  .catch(err => {
+    res.status(500).json({
+        error: err
+    })
   });
 });
 
