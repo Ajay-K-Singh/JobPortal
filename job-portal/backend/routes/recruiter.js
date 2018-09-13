@@ -7,68 +7,63 @@ const router = express.Router();
 const ensureAuthentication = require('../middlewares/ensure-authentication');
 
 router.post("/signup", (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
-        .then(hash => {
-            const user = new Recruiter({
-                email: req.body.email,
-                password: hash
-            });
-            user.save()
-                .then(result => {
-                    res.status(201).json({
-                        message: 'Sign Up Successful. Please Login now!',
-                        result: result
-                    });
-                })
-                .catch(err => {
-                    res.status(500).json({
-                        error: err
-                    });
-                })
+  bcrypt.hash(req.body.password, 10)
+    .then(hash => {
+      const user = new Recruiter({
+          email: req.body.email,
+          password: hash
+      });
+      user.save()
+        .then(result => {
+          res.status(201).json({
+              message: 'Sign Up Successful. Please Login now!',
+              result: result
+          });
         })
-        .catch(err => {
-            res.status(500).json({
-                error: err
-            })
+      })
+      .catch(err => {
+        res.status(500).json({
+            error: err
         })
-});
+      })
+  });
 
 router.post("/login", (req, res, next) => {
     let fetchedUser;
     Recruiter.findOne({ email: req.body.email })
-        .then(user => {
-            if (!user) {
-                res.status(401).json({
-                    message: 'User does not exist. Please Sign Up and then Log in.'
-                });
-            }
-            fetchedUser = user;
-            return bcrypt.compare(req.body.password, user.password)
-        })
-        .then(result => {
-            if (!result) {
-                return res.status(401).json({
-                    message: 'User email or password not correct.'
-                });
-            }
-            const token = jwt.sign({
-                email: fetchedUser.email,
-                userId: fetchedUser._id
-            }, 'keep_it_secret', {
-                expiresIn: "1h"
+      .then(user => {
+        if (!user) {
+            res.status(401).json({
+                message: 'User does not exist. Please Sign Up and then Log in.'
             });
-            res.status(200).json({
-                message: 'Authenticated Successfully',
-                token: token,
-                fetchedUser,
-                expiresIn: "3600"
-            })
+        }
+        fetchedUser = user;
+        return bcrypt.compare(req.body.password, user.password)
+      })
+      .then(result => {
+        if (!result) {
+          return res.status(401).json({
+              message: 'User email or password not correct.'
+          });
+        }
+        const token = jwt.sign({
+          email: fetchedUser.email,
+          userId: fetchedUser._id
+        }, 'keep_it_secret', {
+          expiresIn: "1h"
+        });
+        res.status(200).json({
+          message: 'Authenticated Successfully',
+          token: token,
+          fetchedUser,
+          expiresIn: "3600"
         })
-        .catch(err => {
-          res.status(500).json({
-              error: err
-          })
-      });
+      })
+      .catch(err => {
+        res.status(500).json({
+            error: err
+        })
+    });
 });
 
 router.post("/post-job", ensureAuthentication, (req, res) => {
