@@ -76,19 +76,23 @@ router.post("/login", (req, res, next) => {
 });
 
 router.post("/post-job", ensureAuthentication, (req, res) => {
+  console.log(req.recruiterData.email)
   const newJobPosting = new JobPost({
     jobTitle: req.body.jobTitle,
     nameOfCompany: req.body.nameOfCompany,
-    experienceRange: req.body.experienceRange,
+    experienceFrom: req.body.experienceFrom,
+    experienceTo: req.body.experienceTo,
     location: req.body.location,
     keySkills: req.body.keySkills,
     jobDescription: req.body.jobDescription,
-    salary: req.body.salary,
-    recruiterInfo: req.recruiterData
+    salaryFrom: req.body.salaryFrom,
+    salaryTo: req.body.salaryTo,
+    recruiterInfo: req.recruiterData.userId
   });
   newJobPosting.save().then(jobPosted => {
     res.status(201).json({
-      message: 'Job Added Successfully'
+      message: 'Job Added Successfully',
+      jobPost: jobPosted
     });
   })
   .catch(err => {

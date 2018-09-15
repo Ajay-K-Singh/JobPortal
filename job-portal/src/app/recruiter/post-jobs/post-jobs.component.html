@@ -11,16 +11,28 @@
                 </mat-form-field>
                 <app-company-autosuggetion (formReady)="addFormControl('nameOfCompany', $event)" (onSelectedCompany)="setSelectedCompamy($event)" label="{{ nameOfCompanyLabel }}" placeholder="{{ nameOfCompanyLabel }}"></app-company-autosuggetion>
                 <mat-form-field appearance="outline">
-                    <mat-label>Experience Range</mat-label>
-                    <input matInput type="text" placeholder="Experience Range" name="experienceRange" formControlName="experienceRange">
-                    <mat-error>Please enter experience range needed.</mat-error>
+                    <mat-label>Experience From (in years)</mat-label>
+                    <input matInput type="number" placeholder="Experience From (in years)" name="experienceFrom"
+                    formControlName="experienceFrom" size="2">
+                    <mat-error>Please enter experience.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Experience To (in years)</mat-label>
+                    <input matInput type="number" placeholder="Experience To (in years)" name="experienceTo"
+                    formControlName="experienceTo" size="2">
+                    <mat-error>Please enter experience.</mat-error>
                 </mat-form-field>
                 <app-autocomplete (formReady)="addFormControl('location', $event)" label="{{ locationLabel }}" placeholder="{{ locationPlaceholder }}"></app-autocomplete>
                 <key-skills (formReady)="addFormControl('keySkills', $event)" (selectedSkillSet)="setSelectedSkillSet($event)"></key-skills>
                 <mat-form-field appearance="outline">
-                    <mat-label>Salary</mat-label>
-                    <input matInput type="text" placeholder="Salary" name="salary" formControlName="salary">
-                    <mat-error>Please enter a salary.</mat-error>
+                    <mat-label>Salary From (in lpa)</mat-label>
+                    <input matInput type="number" placeholder="Salary From (in lpa)" name="salaryFrom" formControlName="salaryFrom">
+                    <mat-error>Please enter Salary.</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Salary To (in lpa)</mat-label>
+                    <input matInput type="number" placeholder="Salary To (in lpa)" name="salaryTo" formControlName="salaryTo">
+                    <mat-error>Please enter Salary.</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="job-description">
                     <mat-label>Job Description</mat-label>

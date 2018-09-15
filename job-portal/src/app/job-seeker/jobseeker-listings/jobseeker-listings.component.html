@@ -6,21 +6,21 @@
         <span class="company-info">
             <img src="{{jobPost.nameOfCompany.logo}}" class="company-logo">
             <h3>{{jobPost.nameOfCompany.nameOfCompany}}</h3>
-				</span>
+        </span>
         <div>
             <span>
-							<i class="material-icons work-experience">work</i> 
-							{{jobPost.experienceRange}}
-        		</span>
+                <i class="material-icons work-experience">work</i> 
+                {{jobPost.experienceFrom}} To {{jobPost.experienceTo}} yrs
+        	</span>
             <span>
-							<i class="material-icons location">location_on</i> 
-							{{jobPost.location}}
-						</span>
+                <i class="material-icons location">location_on</i> 
+                {{jobPost.location}}
+            </span>
         </div>
         <div>
             <p class="skill-set">
                 <span>
-									<i class="material-icons keyskill-icon">perm_data_setting</i> 
+                    <i class="material-icons keyskill-icon">perm_data_setting</i> 
                 </span>
                 <chip-list [skills]="jobPost.keySkills" removable="false"></chip-list>
             </p>
@@ -37,6 +37,6 @@
         </mat-expansion-panel>
     </mat-accordion>
     <div class="bottom">
-        <i class="fas fa-rupee-sign"></i> {{jobPost.salary}}
+        <i class="fas fa-rupee-sign"></i> {{jobPost.salaryFrom}} To {{jobPost.salaryTo}} lpa
     </div>
 </mat-card>

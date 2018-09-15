@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 import { JobSeekerComponent } from './job-seeker/job-seeker.component';
 import { RecruiterComponent } from './recruiter/recruiter.component';
 import { PostJobsComponent } from './recruiter/post-jobs/post-jobs.component';
@@ -38,7 +37,6 @@ import { MessageComponent } from './messages/message.component';
     AngularSvgIconModule
   ],
   declarations: [
-    LandingPageComponent,
     JobSeekerComponent,
     RecruiterComponent,
     PostJobsComponent,
@@ -60,7 +58,6 @@ import { MessageComponent } from './messages/message.component';
     MessageComponent
   ],
   exports: [
-    LandingPageComponent,
     JobSeekerComponent,
     RecruiterComponent,
     PostJobsComponent,

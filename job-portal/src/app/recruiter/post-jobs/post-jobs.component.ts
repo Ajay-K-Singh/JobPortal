@@ -22,9 +22,11 @@ export class PostJobsComponent implements OnInit {
   ngOnInit() {
     this.jobPostForm = new FormGroup({
       'jobTitle': new FormControl(null, Validators.required),
-      'experienceRange': new FormControl(null, Validators.required),
+      'experienceFrom': new FormControl(null, Validators.required),
+      'experienceTo': new FormControl(null, Validators.required),
       'jobDescription': new FormControl(null, Validators.required),
-      'salary': new FormControl(null, Validators.required)
+      'salaryFrom': new FormControl(null, Validators.required),
+      'salaryTo': new FormControl(null, Validators.required)
     });
   }
 
@@ -54,14 +56,17 @@ export class PostJobsComponent implements OnInit {
       id: null,
       jobTitle: form.value.jobTitle,
       nameOfCompany: this.companyInfo,
-      experienceRange: form.value.experienceRange,
+      experienceFrom: form.value.experienceFrom,
+      experienceTo: form.value.experienceTo,
       location: form.value.location['location'],
       keySkills: this.skillSet,
       jobDescription: form.value.jobDescription,
-      salary: form.value.salary
+      salaryFrom: form.value.salaryFrom,
+      salaryTo: form.value.salaryTo
     }
-    this.jobPostingService.addJobPosting(jobPost.id, jobPost.jobTitle, 
-      jobPost.nameOfCompany,jobPost.experienceRange, jobPost.location, jobPost.keySkills, jobPost.jobDescription, jobPost.salary);
+    this.jobPostingService.addJobPosting(jobPost.id, jobPost.jobTitle, jobPost.nameOfCompany,
+      jobPost.experienceFrom, jobPost.experienceTo, jobPost.location, jobPost.keySkills,
+      jobPost.jobDescription, jobPost.salaryFrom, jobPost.salaryTo);
     //form.reset();
   }
 }

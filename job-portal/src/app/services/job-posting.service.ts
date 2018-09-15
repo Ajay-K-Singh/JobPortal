@@ -16,24 +16,33 @@ export class JobPostingService {
   addJobPosting(id: string,
     jobTitle: string,
     nameOfCompany: object,
-    experienceRange: string,
+    experienceFrom: number,
+    experienceTo: number,
     location: string,
     keySkills: object,
-    jobDescription: string, salary: string ) {
+    jobDescription: string,
+    salaryFrom: number,
+    salaryTo: number ) {
+      console.log(keySkills);
       const postJob: PostJob = {
         id: null,
         jobTitle: jobTitle,
         nameOfCompany,
-        experienceRange: experienceRange,
+        experienceFrom: experienceFrom,
+        experienceTo: experienceTo,
         location: location,
         keySkills,
         jobDescription: jobDescription,
-        salary: salary
+        salaryFrom: salaryFrom,
+        salaryTo: salaryTo
       };
-      this.http.post<{ id: string, jobTitle: string, nameOfCOmpany: object, experienceRange: string, location: string, keySkills: object, jobDescription: string, salary: string}>('http://localhost:3000/api/recruiter/post-job', postJob)
+      const requestPath = localStorage.getItem('loggedInAs');
+      this.http.post<{ id: string, jobTitle: string, nameOfCOmpany: object, experienceFrom: number,
+        experienceTo: number, location: string, keySkills: object, jobDescription: string,
+        salaryFrom: number, salaryTo: number}>(`http://localhost:3000/api/${requestPath}/post-job`, postJob)
         .subscribe((response) => {
           console.log(response);
-            const id = response.id;
+            const id = (<any>response).jobPost._id;
 						postJob.id = id;
 						this.jobPosts.push(postJob);
 						this.jobsPosted.next([...this.jobPosts]);
@@ -52,10 +61,11 @@ export class JobPostingService {
             location: res.location,
             keySkills: res.keySkills,
             nameOfCompany: res.nameOfCompany,
-            experienceRange: res.experienceRange,
+            experienceFrom: res.experienceFrom,
+            experienceTo: res.experienceTo,
             jobDescription: res.jobDescription,
-            salary: res.salary,
-            recruiterId: res.recruiterInfo
+            salaryFrom: res.salaryFrom,
+            salaryTo: res.salaryTo
           }
         })
       }))
