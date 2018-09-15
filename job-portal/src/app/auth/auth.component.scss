@@ -7,7 +7,6 @@ mat-card {
     float: right;
     background-color: whitesmoke;
     border-radius: 15px;
-    // box-shadow: 20px 20px 50px 15px grey !important;
 }
 
 img {
@@ -36,7 +35,7 @@ mat-form-field {
     grid-template-columns: 1fr 1fr;
 }
 
-.landing-grid {
+.login-modes {
     display: grid;
     grid-template-columns: 1fr 1fr;
     position: relative;
@@ -57,15 +56,6 @@ mat-form-field {
 
 ::ng-deep .mat-ink-bar {
     background-color: #FF5722 !important;
-}
-
-.landing-page {
-    position: fixed;
-    padding: 0;
-    margin: 0;
-    top: 0;
-    left: 0;
-    background-color: white;
 }
 
 .recruiter-button {
@@ -116,13 +106,28 @@ mat-form-field {
     top: 30%;
 }
 
-.landing-question {
-    text-align: center;
-    font-size: 50px;
-}
-
 .active {
     background-color: #1DE9B6;
     color: #E65100;
     z-index: 100;
+}
+
+mat-spinner {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 50%;
+    left: 50%;
+    margin: -50px 0px 0px -50px;
+}
+
+.spinner-active {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 9999;
 }

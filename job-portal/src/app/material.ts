@@ -10,8 +10,7 @@ import { MatButtonModule,
   MatChipsModule,
   MatDividerModule,
   MatTabsModule,
-  MatProgressSpinnerModule,
-  MatSnackBarModule
+  MatProgressSpinnerModule  
 } from '@angular/material';
 import { NgModule } from '@angular/core';
 
@@ -28,8 +27,7 @@ import { NgModule } from '@angular/core';
     MatChipsModule,
     MatDividerModule,
     MatTabsModule,
-    MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatProgressSpinnerModule  
   ],
   exports: [MatButtonModule, 
     MatCheckboxModule, 
@@ -43,8 +41,7 @@ import { NgModule } from '@angular/core';
     MatChipsModule,
     MatDividerModule,
     MatTabsModule,
-    MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatProgressSpinnerModule 
   ]
 })
 export class MaterialModule { }

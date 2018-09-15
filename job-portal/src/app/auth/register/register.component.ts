@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   @Output() private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output() onSignUp: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   matcher = new CustomErrorStateMatcher();
-  modeSelected: string;
+  modeSelected: string = '';
   private modeSubs: Subscription;
   constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationService) {
     this.createForm();
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
   onSignupClick() {
     if (this.registerForm.valid) {
       this.onSignUp.emit(this.registerForm);
-      if (this.modeSelected !== undefined) {
+      if (this.modeSelected) {
         this.createForm();
       }
     }

@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   @Output() onLogin: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   matcher = new CustomErrorStateMatcher();
-  modeSelected: string;
+  modeSelected: string = '';
   private modeSubs: Subscription;
 
   constructor(private formBuilder: FormBuilder, public authenticationService: AuthenticationService) {
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   onLoginClick () {
     if (this.loginForm.valid) {
       this.onLogin.emit(this.loginForm);
-      if (this.modeSelected !== undefined) {
+      if (this.modeSelected) {
         this.createForm();
       }
     }

@@ -80,7 +80,6 @@ export class AuthenticationService {
       email: email,
       password: password
     }
-    this.setLoadingListener(true);
     const requestPath = this.mode;
     this.http.post(`http://localhost:3000/api/${requestPath}/signup`, userData)
       .subscribe(response => {
@@ -95,8 +94,6 @@ export class AuthenticationService {
         }
       });
       this.clearMessageObject();
-      this.setSignUpListener(false);
-      this.setLoadingListener(false);
   }
 
   logInUser(email: string, password: string) {
@@ -142,6 +139,8 @@ export class AuthenticationService {
     clearTimeout(this.tokenTimer);
     this.ClearAuthenticationData();
     this.setLoadingListener(false);
+    this.mode = '';
+    this.modeListener.next(this.mode);
     this.navigateTo('home');
   }
 
@@ -164,6 +163,7 @@ export class AuthenticationService {
       }
     }
   }
+
   validateMode() {
     if (!this.mode) {
       this.setMessageObject('Please Select a mode to continue.', 'error');
