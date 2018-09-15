@@ -42,7 +42,7 @@ export class JobPostingService {
   }
   
   getJobPosts() {
-    const requestPath = this.authenticationService.getModes()[`${localStorage.getItem('loggedInAs')}`];
+    const requestPath = this.authenticationService.getMode();
     this.http.get<{ jobPosts: any }>(`http://localhost:3000/api/${requestPath}/job-posts`)
       .pipe(map((response) => {
         return response.jobPosts.map((res) => {

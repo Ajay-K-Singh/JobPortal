@@ -1,17 +1,28 @@
 <div id="background">
+    <div color="accent">
+        <img src="../../assets/images/speakingCap.png">
+        <div class="landing-grid">
+            <div class="recruiter">
+                <button mat-stroked-button (click)="setMode('recruiter')" [class.active]="mode=='recruiter'" id="recruiter" class="recruiter-button">Recruiter</button>
+            </div>
+            <div class="jobseeker">
+                <button mat-stroked-button (click)="setMode('job-seeker')" [class.active]="mode=='job-seeker'" id="job-seeker" class="jobseeker-button">Job Seeker</button>
+            </div>
+        </div>
+    </div>
+    <mat-card>
+        <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
+            <mat-tab label="Login ">
+                <login-form (onLogin)="onLoginRequest($event) "></login-form>
+            </mat-tab>
+            <mat-tab label="Sign Up ">
+                <register-form (onSignUp)="onSignUpRequest($event) "></register-form>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
 </div>
 <app-messages></app-messages>
 <mat-form-field>
     <input matInput type="number" [formControl]="selected">
 </mat-form-field>
-<mat-card>
-    <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)">
-        <mat-tab label="Login ">
-            <login-form (onLogin)="onLoginRequest($event) "></login-form>
-        </mat-tab>
-        <mat-tab label="Sign Up ">
-            <register-form (onSignUp)="onSignUpRequest($event) "></register-form>
-        </mat-tab>
-    </mat-tab-group>
-</mat-card>
-<mat-spinner *ngIf="isLoading "></mat-spinner>

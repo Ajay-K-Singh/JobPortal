@@ -1,6 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { CustomErrorStateMatcher } from '../../material/error-state-matcher';
+import { AuthenticationService } from '../../services/authentication.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'register-form',
   templateUrl: './register.component.html',
@@ -12,8 +15,11 @@ export class RegisterComponent implements OnInit {
   @Output() private formReady : EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output() onSignUp: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   matcher = new CustomErrorStateMatcher();
-  constructor(private formBuilder: FormBuilder) {
+  modeSelected: string;
+  private modeSubs: Subscription;
+  constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationService) {
     this.createForm();
+    this.setModeSubscription();
   }
   ngOnInit() {
   }
@@ -37,7 +43,17 @@ export class RegisterComponent implements OnInit {
   onSignupClick() {
     if (this.registerForm.valid) {
       this.onSignUp.emit(this.registerForm);
-      this.createForm();
+      if (this.modeSelected !== undefined) {
+        this.createForm();
+      }
     }
+  }
+
+  setModeSubscription() {
+    this.modeSelected = this.authenticationService.getMode();
+    this.modeSubs = this.authenticationService.getModeListener()
+      .subscribe(mode => {
+        this.modeSelected = mode;
+      }) 
   }
 }

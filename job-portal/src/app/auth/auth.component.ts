@@ -13,14 +13,24 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   selected = new FormControl(0);
   didSignUp: boolean = false;
   private didSignUpSub: Subscription;
+  mode: string;
   constructor(public authenticationService: AuthenticationService ) { }
   
   ngOnInit() {
+    this.setLoadingSubs();
+    this.setDidSignUpSubscription();
+    this.authenticationService.autoAuthenticateUser();
+  }
+
+  setLoadingSubs() {
     this.isLoadingStatus = this.authenticationService.getIsLoading();
     this.isLoadingSub = this.authenticationService.getIsLoadingListener()
       .subscribe(isLoading => {
         this.isLoadingStatus = isLoading;
     });
+  }
+
+  setDidSignUpSubscription() {
     this.didSignUp = this.authenticationService.getDidSignUp();
     this.didSignUpSub = this.authenticationService.getDidSignUpListener()
       .subscribe(didSignUp => {
@@ -32,13 +42,11 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
           this.selected.setValue(1);
         }
     });
-    this.authenticationService.autoAuthenticateUser();
   }
 
-  ngOnDestroy() {
-    if(this.isLoadingSub) {
-      this.isLoadingSub.unsubscribe();
-    }
+  setMode(mode) {
+    this.mode = mode;
+    this.authenticationService.setMode(mode);
   }
 
   private onLoginRequest(event) {
@@ -51,6 +59,12 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     const email = event.value.emailOrUserName;
     const password = event.value.password;
     this.authenticationService.createUser(email, password);
+  }
+
+  ngOnDestroy() {
+    if(this.isLoadingSub) {
+      this.isLoadingSub.unsubscribe();
+    }
   }
 
 }

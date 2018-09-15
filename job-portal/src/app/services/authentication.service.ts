@@ -10,27 +10,23 @@ import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
 export class AuthenticationService {
   private authenticationStatusListener = new Subject<any>();
   private isAuthenticated = false;
-  private message: string; 
   private isLoadingListener = new Subject<boolean>();
   private isLoading = false;
   private token: string;
   private tokenTimer: any;
   private didSignUp: boolean = false;
   private didSignUpListener = new Subject<boolean>();
+  private mode;
+  private modeListener = new Subject<string>();
   private messageObject = {
       message: '',
       type: ''
   }
   private messageObjectListener = new BehaviorSubject<any>(this.messageObject);
   loggedInAs: string;
-  navigatedFrom: string;
   previousUrl: string;
 
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
-    this.route.queryParams.subscribe(params => {
-        this.navigatedFrom = params.route;
-        this.autoAuthenticateUser();
-    });
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   getIsLoading() {
@@ -64,35 +60,57 @@ export class AuthenticationService {
     return this.messageObjectListener.asObservable();
   }
 
+  getMode() {
+    return this.mode;
+  }
+
+  getModeListener() {
+    return this.modeListener.asObservable();
+  }
+
 
   createUser(email: string, password: string) {
+    this.setLoadingListener(true);
+    const modeValid = this.validateMode();
+    if (!modeValid) {
+      this.setLoadingListener(false);
+      return;
+    }
     const userData: AuthModel = { 
       email: email,
       password: password
     }
     this.setLoadingListener(true);
-    const requestPath = this.getModes()[`${this.navigatedFrom}`];
+    const requestPath = this.mode;
     this.http.post(`http://localhost:3000/api/${requestPath}/signup`, userData)
       .subscribe(response => {
         this.setMessageObject((<any>response).message, 'success');
         this.setSignUpListener(true);
         this.setLoadingListener(false);
       }, error => {
-        if (error.message) {
-          this.setMessageObject(error.message, 'error');
+        if (error.error.message) {
+          this.setMessageObject(error.error.message, 'error');
+          this.setSignUpListener(true);
+          this.setLoadingListener(false);
         }
       });
       this.clearMessageObject();
       this.setSignUpListener(false);
+      this.setLoadingListener(false);
   }
 
   logInUser(email: string, password: string) {
     this.setLoadingListener(true);
+    const modeValid = this.validateMode();
+    if (!modeValid) {
+      this.setLoadingListener(false);
+      return;
+    }
     const userData: AuthModel = { 
       email: email,
       password: password
     }
-    const requestPath = this.getModes()[`${this.navigatedFrom}`];
+    const requestPath = this.mode;
     this.http.post<{token: string, expiresIn: number}>(`http://localhost:3000/api/${requestPath}/login`, userData)
     .subscribe(response => {
       const token = response.token;
@@ -104,14 +122,13 @@ export class AuthenticationService {
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
         this.SaveAuthenticationData(token, expirationDate);
-        this.navigateTo(this.navigatedFrom);
+        this.navigateTo(this.mode);
       }
     }, error => {
-        if (error.message) {
-          this.setMessageObject(error.message, 'error');
+        if (error.error.message) {
+          this.setMessageObject(error.error.message, 'error');
         }
-        this.setMessageObject(error.error.message, 'error');
-        if (!error.hasSignedUp) {
+        if (!error.error.hasSignedUp) {
           this.setSignUpListener(false);
         }
         this.setLoadingListener(false);
@@ -130,7 +147,7 @@ export class AuthenticationService {
 
   autoAuthenticateUser() {
     const authenticationInfo = this.getAuthenticationData();
-    if (!authenticationInfo && !this.navigatedFrom) {
+    if (!authenticationInfo && !this.mode) {
       this.router.navigate(['/']);
       return;
     }
@@ -146,6 +163,16 @@ export class AuthenticationService {
         }
       }
     }
+  }
+  validateMode() {
+    if (!this.mode) {
+      this.setMessageObject('Please Select a mode to continue.', 'error');
+      this.messageObjectListener.next(this.messageObject);
+      return false;
+    }
+    this.setMessageObject('', ''); 
+    this.messageObjectListener.next(this.messageObject);
+    return true;
   }
 
   private navigateTo(route) {
@@ -186,7 +213,7 @@ export class AuthenticationService {
   private SaveAuthenticationData(token: string, expiration: Date) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expiration.toISOString());
-    localStorage.setItem('loggedInAs', `${this.navigatedFrom}`)
+    localStorage.setItem('loggedInAs', `${this.mode}`)
   }
 
   private ClearAuthenticationData() {
@@ -215,10 +242,8 @@ export class AuthenticationService {
     }, duration * 1000);
   }
 
-  getModes() {
-    return {
-      jobs: 'job-seeker',
-      recruiter: 'recruiter'
-    }
+  setMode(mode) {
+    this.mode = mode;
+    this.modeListener.next(this.mode);
   }
 }

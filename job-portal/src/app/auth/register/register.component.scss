@@ -1,7 +1,8 @@
 mat-card {
-    height: 500px;
+    height: 450px;
     margin: 0 auto;
-    background-color: lavender;
+    background-color: #FAFAFA;
+    border-radius: 0 0 15px 15px;
 }
 
 mat-card-content {
@@ -17,7 +18,7 @@ form {
 mat-card-footer {
     text-align: center;
     position: relative;
-    top: 4rem;
+    top: 2rem;
 }
 
 .signup-button {

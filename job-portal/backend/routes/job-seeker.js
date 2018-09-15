@@ -20,6 +20,13 @@ router.post("/signup", (req, res, next) => {
                   result: result
               });
           })
+          .catch(err => {
+            if (err.errors.email.kind === 'unique') {
+              res.status(500).json({
+                message: 'You are already Signed Up. Please Log In with valid credentials.'
+              })
+            }
+          })
         })
         .catch(err => {
             res.status(500).json({
@@ -30,7 +37,6 @@ router.post("/signup", (req, res, next) => {
 
 router.post("/login", (req, res, next) => {
     let fetchedUser;
-    console.log(req.body.email);
     JobSeeker.findOne({ email: req.body.email })
       .then(user => {
         if (!user) {
@@ -45,7 +51,8 @@ router.post("/login", (req, res, next) => {
       .then(result => {
           if (!result) {
               return res.status(401).json({
-                  message: 'User email or password not correct.'
+                  message: 'User email or password not correct.',
+                  hasSignedUp: true
               });
           }
           const token = jwt.sign({

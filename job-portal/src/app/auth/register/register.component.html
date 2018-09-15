@@ -4,7 +4,7 @@
             <mat-form-field appearance="outline">
                 <mat-label>Email/User Name</mat-label>
                 <input matInput type="email" placeholder="Email/User Name" name="emailOrUserName" formControlName="emailOrUserName" [errorStateMatcher]="matcher">
-                <mat-error *ngIf="registerForm.hasError('email', 'emailOrUserName') && !registerForm.hasError('required', 'emailOrUserName')">
+                <mat-error *ngIf="registerForm.hasError('email', 'emailOrUserName')">
                     Please enter a valid email address
                 </mat-error>
                 <mat-error *ngIf="registerForm.hasError('required', 'emailOrUserName')">
