@@ -27,6 +27,7 @@ export class AuthenticationService {
   previousUrl: string;
 
   constructor(private http: HttpClient, private router: Router) {
+    this.autoAuthenticateUser();
   }
 
   getIsLoading() {

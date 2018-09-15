@@ -19,7 +19,6 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setLoadingSubs();
     this.setDidSignUpSubscription();
-    this.authenticationService.autoAuthenticateUser();
   }
 
   setLoadingSubs() {
