@@ -48,7 +48,6 @@ import { CompanyAutoSuggestionService } from '../../services/companyautosuggesti
     }
     this.copanyAutoSuggestService.suggestCompanies(nameOfCompany);
     this.companiesAutoSuggestions = this.copanyAutoSuggestService.getPredictionsUpdateListener().subscribe((companies: Companies[]) => {
-      console.log(companies);
       this.companies = companies;
     });
   }

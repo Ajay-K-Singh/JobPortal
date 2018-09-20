@@ -36,7 +36,7 @@ router.post("/signup", (req, res, next) => {
   });
 
 router.post("/login", (req, res, next) => {
-    let fetchedUser;
+    const config = req.app.get('config');
     Recruiter.findOne({ email: req.body.email })
       .then(user => {
         if (!user) {
@@ -45,7 +45,7 @@ router.post("/login", (req, res, next) => {
                 hasSignedUp: false
             });
         }
-        fetchedUser = user;
+        config.user = user;
         return bcrypt.compare(req.body.password, user.password)
       })
       .then(result => {
@@ -56,16 +56,19 @@ router.post("/login", (req, res, next) => {
           });
         }
         const token = jwt.sign({
-          email: fetchedUser.email,
-          userId: fetchedUser._id
+          email: config.user.email,
+          userId: config.user._id
         }, 'keep_it_secret', {
           expiresIn: "1h"
         });
+        config.token = token;
+        config.isAuthenticated = true;
+        config.loggedInTime = new Date();
         res.status(200).json({
           message: 'Authenticated Successfully',
           token: token,
-          fetchedUser,
-          expiresIn: "3600"
+          config,
+          expiresIn: 3600        
         })
       })
       .catch(err => {
@@ -76,7 +79,7 @@ router.post("/login", (req, res, next) => {
 });
 
 router.post("/post-job", ensureAuthentication, (req, res) => {
-  console.log(req.recruiterData.email)
+  const config = req.app.get('config');
   const newJobPosting = new JobPost({
     jobTitle: req.body.jobTitle,
     nameOfCompany: req.body.nameOfCompany,
@@ -87,7 +90,7 @@ router.post("/post-job", ensureAuthentication, (req, res) => {
     jobDescription: req.body.jobDescription,
     salaryFrom: req.body.salaryFrom,
     salaryTo: req.body.salaryTo,
-    recruiterInfo: req.recruiterData.userId
+    recruiterInfo: config.userID
   });
   newJobPosting.save().then(jobPosted => {
     res.status(201).json({
@@ -102,12 +105,18 @@ router.post("/post-job", ensureAuthentication, (req, res) => {
   });
 });
 
-router.get("/job-posts", ensureAuthentication, (req, res) => {
-  JobPost.find({ recruiterInfo: req.recruiterData.userId }).then(documents => {
+router.get("/job-posts", (req, res) => {
+  const config = req.app.get('config');
+  JobPost.find({ recruiterInfo: config.userID }).then(documents => {
     res.status(200).json({
       message: "Jobs fetched successfully!",
       jobPosts: documents
     });
+  })
+  .catch(error => {
+    res.status(500).json({
+      error: error
+    })
   });
 });
 

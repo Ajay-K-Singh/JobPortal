@@ -23,7 +23,6 @@ export class JobPostingService {
     jobDescription: string,
     salaryFrom: number,
     salaryTo: number ) {
-      console.log(keySkills);
       const postJob: PostJob = {
         id: null,
         jobTitle: jobTitle,
@@ -41,7 +40,6 @@ export class JobPostingService {
         experienceTo: number, location: string, keySkills: object, jobDescription: string,
         salaryFrom: number, salaryTo: number}>(`http://localhost:3000/api/${requestPath}/post-job`, postJob)
         .subscribe((response) => {
-          console.log(response);
             const id = (<any>response).jobPost._id;
 						postJob.id = id;
 						this.jobPosts.push(postJob);
@@ -70,7 +68,6 @@ export class JobPostingService {
         })
       }))
       .subscribe((jobPosts) => {
-      console.log(jobPosts);
         this.jobPosts = jobPosts;
         this.jobsPosted.next([...this.jobPosts])
       })

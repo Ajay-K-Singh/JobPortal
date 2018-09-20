@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const JobPost = require('../models/job-posting');
 
-
 router.post("/signup", (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -36,7 +35,7 @@ router.post("/signup", (req, res, next) => {
 });
 
 router.post("/login", (req, res, next) => {
-    let fetchedUser;
+    const config = req.app.get('config');
     JobSeeker.findOne({ email: req.body.email })
       .then(user => {
         if (!user) {
@@ -45,7 +44,7 @@ router.post("/login", (req, res, next) => {
                 hasSignedUp: false
             });
         }
-        fetchedUser = user;
+        config.user = user;
         return bcrypt.compare(req.body.password, user.password)
       })
       .then(result => {
@@ -56,15 +55,17 @@ router.post("/login", (req, res, next) => {
               });
           }
           const token = jwt.sign({
-              email: fetchedUser.email,
-              userId: fetchedUser._id
+              email: config.user.email,
+              userId: config.user._id
           }, 'keep_it_secret', {
               expiresIn: "1h"
           });
+          config.token = token;
+          config.isAuthenticated = true;
+          config.loggedInTime = new Date();
           res.status(200).json({
               message: 'Authenticated Successfully',
-              token: token,
-              fetchedUser,
+              config,
               expiresIn: "3600"
           })
       })
@@ -81,6 +82,11 @@ router.get("/job-posts", (req, res) => {
       message: "Jobs fetched successfully!",
       jobPosts: documents
     });
+  })
+  .catch(error => {
+    res.status(500).json({
+      error: error
+    })
   });
 });
 module.exports = router;

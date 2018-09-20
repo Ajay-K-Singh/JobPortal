@@ -10,6 +10,8 @@ import { JobListingsComponent } from './recruiter/job-listings/job-listings.comp
 import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobseeker-listings.component';
 import { AuthorizationComponent } from './auth/auth.component';
 import { AuthenticationGuard } from './services/auth.guard';
+import { SeekerProfile } from './job-seeker/profile/seeker.profile';
+
 const routes: Routes = [
     {
         path: '',
@@ -25,8 +27,11 @@ const routes: Routes = [
         {
             path: 'search-job',
             component: JobSearchFormComponent
-          }
-        ]
+        },
+        {
+          path: 'profile',
+          component: SeekerProfile
+        }]
     },
     {
         path: 'recruiter',

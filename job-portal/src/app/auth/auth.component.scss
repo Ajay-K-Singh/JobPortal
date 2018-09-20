@@ -9,15 +9,6 @@ mat-card {
     border-radius: 15px;
 }
 
-img {
-    position: relative;
-    left: 10rem;
-    height: 299px;
-    width: 400px;
-    z-index: 101;
-    top: 4rem;
-}
-
 mat-form-field {
     display: none;
 }
@@ -39,7 +30,7 @@ mat-form-field {
     display: grid;
     grid-template-columns: 1fr 1fr;
     position: relative;
-    top: 3rem;
+    top: 20rem;
 }
 
 ::ng-deep .mat-tab-labels {

@@ -3,11 +3,15 @@ import { AuthModel } from '../models/authorization.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
+import { UserModel } from '../models/user.model';
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthenticationService {
+  private user: UserModel;
+  private userInfoListener = new Subject<any>();
   private authenticationStatusListener = new Subject<any>();
   private isAuthenticated = false;
   private isLoadingListener = new Subject<boolean>();
@@ -27,7 +31,7 @@ export class AuthenticationService {
   previousUrl: string;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.autoAuthenticateUser();
+    this.validateSession();
   }
 
   getIsLoading() {
@@ -67,6 +71,31 @@ export class AuthenticationService {
 
   getModeListener() {
     return this.modeListener.asObservable();
+  }
+
+  getUserInfo() {
+    return this.user;
+  }
+
+  getUserInfoListener() {
+    return this.userInfoListener.asObservable();
+  }
+  
+  validateSession() {
+    this.http.get('http://localhost:3000/validate-session')
+      .subscribe(data => {
+        if ((<any>data).user.isAuthenticated) {
+          const expiresInDuration = (<any>data).user.expiresIn;
+          const now = new Date();
+          this.setUserInfo((<any>data).user.user);
+          this.setAuthenticationTimer(expiresInDuration);
+          const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+          this.SaveAuthenticationData((<any>data).user.token, expirationDate);
+          this.autoAuthenticateUser(this.getAuthenticationData());
+        } else {
+          this.ClearAuthenticationData();
+        }
+      });
   }
 
 
@@ -111,7 +140,7 @@ export class AuthenticationService {
     const requestPath = this.mode;
     this.http.post<{token: string, expiresIn: number}>(`http://localhost:3000/api/${requestPath}/login`, userData)
     .subscribe(response => {
-      const token = response.token;
+      const token = (<any>response).config.token;
       if (token) {
         const expiresInDuration = response.expiresIn;
         this.setAuthenticationTimer(expiresInDuration);
@@ -120,7 +149,7 @@ export class AuthenticationService {
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
         this.SaveAuthenticationData(token, expirationDate);
-        this.navigateTo(this.mode);
+        this.validateSession();
       }
     }, error => {
         if (error.error.message) {
@@ -136,22 +165,27 @@ export class AuthenticationService {
 
   logOut() {
     this.setLoadingListener(true);
-    this.setAuthenticationListener(false);
-    clearTimeout(this.tokenTimer);
-    this.ClearAuthenticationData();
-    this.setLoadingListener(false);
-    this.mode = '';
-    this.modeListener.next(this.mode);
-    this.navigateTo('home');
+    this.http.get('http://localhost:3000/logout')
+      .subscribe(data => {
+        this.ClearAuthenticationData();
+        this.setAuthenticationListener(false);
+        clearTimeout(this.tokenTimer);
+        this.ClearAuthenticationData();
+        this.resetUserInfo();
+        this.setLoadingListener(false);
+        this.mode = '';
+        this.modeListener.next(this.mode);
+        this.navigateTo('home');
+    });
+
   }
 
-  autoAuthenticateUser() {
-    const authenticationInfo = this.getAuthenticationData();
+  autoAuthenticateUser(authenticationInfo) {
     if (!authenticationInfo && !this.mode) {
       this.router.navigate(['/']);
       return;
     }
-    if (authenticationInfo) {
+    if (authenticationInfo && authenticationInfo.token) {
       const now = new Date();
       const expiresIn = authenticationInfo.expirationDate.getTime() - now.getTime();
       if (expiresIn > 0) {
@@ -184,6 +218,30 @@ export class AuthenticationService {
     }
   }
 
+  private setUserInfo(userInfo) {
+      const user: UserModel = { 
+      email: <string>(userInfo.email),
+      firstName:  <string>(userInfo.firstName),
+      lastName: <string>(userInfo.lastName),
+      image: <string>(userInfo.image),
+      id: userInfo._id
+    };
+    this.user = user;
+    this.userInfoListener.next(this.user);
+  }
+
+  private resetUserInfo() {
+    const user: UserModel = {
+      email: '',
+      firstName:  '',
+      lastName: '',
+      image: '',
+      id: ''
+    };
+    this.user = user;
+    this.userInfoListener.next(this.user);
+  }
+
   private setMessageObject(message, type) {
     this.messageObject.message = message;
     this.messageObject.type = type;
@@ -214,13 +272,13 @@ export class AuthenticationService {
   private SaveAuthenticationData(token: string, expiration: Date) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expiration.toISOString());
-    localStorage.setItem('loggedInAs', `${this.mode}`)
   }
 
   private ClearAuthenticationData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('loggedInAs');
+    this.navigateTo('home');
   }
 
   private getAuthenticationData() {
@@ -245,6 +303,7 @@ export class AuthenticationService {
 
   setMode(mode) {
     this.mode = mode;
+    localStorage.setItem('loggedInAs', this.mode)
     this.modeListener.next(this.mode);
   }
 }

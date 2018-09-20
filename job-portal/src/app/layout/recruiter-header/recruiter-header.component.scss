@@ -18,7 +18,12 @@ a {
     font-size: 30px;
 }
 
-.links {
+.mat-list {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.userName {
+    color: white;
+    margin-left: 1rem;
 }

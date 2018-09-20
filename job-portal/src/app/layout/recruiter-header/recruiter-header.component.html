@@ -3,12 +3,16 @@
         <a routerLink="/recruiter" class="header">Recruiter</a>
     </span>
     <span class="spacer"></span>
-    <ul class="links">
-        <li>
+    <mat-list>
+        <mat-list-item>
             <a mat-button routerLink="/recruiter/post-job" routerLinkActive="mat-accent">Post Job</a>
-        </li>
-        <li>
+        </mat-list-item>
+        <mat-list-item>
             <a mat-button (click)="onLogOut()" routerLinkActive="mat-warning">Log Out </a>
-        </li>
-    </ul>
+        </mat-list-item>
+        <mat-list-item *ngIf="userIsAuthenticated">
+            <img mat-list-avatar [src]="user.image" alt="Desc 1">
+            <p class="userName">{{user.firstName}}</p>
+        </mat-list-item>
+    </mat-list>
 </mat-toolbar>

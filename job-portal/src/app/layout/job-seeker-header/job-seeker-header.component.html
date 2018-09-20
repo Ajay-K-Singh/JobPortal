@@ -3,12 +3,25 @@
 		<a routerLink="/jobs" class="header">Jobs</a>
 	</span>
     <span class="spacer"></span>
-    <ul class="links">
-        <li>
-            <a mat-button routerLink="/job-seeker/search-job" routerLinkActive="mat-primary">Search Job</a>
-        </li>
-        <li *ngIf="userIsAuthenticated">
-            <a mat-button (click)="onLogOut()" routerLinkActive="mat-primary">Log Out</a>
-        </li>
-    </ul>
+    <mat-list>
+        <mat-list-item class="button-search">
+            <a routerLink="/job-seeker/search-job" routerLinkActive="mat-primary">Search Job</a>
+        </mat-list-item>
+        <mat-list-item *ngIf="userIsAuthenticated">
+            <span class="user-info" routerLink="/job-seeker/profile">
+            <img mat-list-avatar [src]="user.image" alt="Desc 1">
+            <p class="user-name">{{user.firstName}}</p>
+          </span>
+            <button [matMenuTriggerFor]="menu" class="user-button">
+            <div class="arrow-left"></div>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <a (click)="onLogOut()" routerLinkActive="mat-accent" class="logout">
+                    Log Out 
+                  </a>
+                </button>
+            </mat-menu>
+        </mat-list-item>
+    </mat-list>
 </mat-toolbar>

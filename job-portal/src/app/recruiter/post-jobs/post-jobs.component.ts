@@ -48,7 +48,6 @@ export class PostJobsComponent implements OnInit {
 
   onSubmit() {
     const form = this.jobPostForm;
-    console.log(form);
     if (form.invalid) {
       return;
     }
@@ -67,6 +66,6 @@ export class PostJobsComponent implements OnInit {
     this.jobPostingService.addJobPosting(jobPost.id, jobPost.jobTitle, jobPost.nameOfCompany,
       jobPost.experienceFrom, jobPost.experienceTo, jobPost.location, jobPost.keySkills,
       jobPost.jobDescription, jobPost.salaryFrom, jobPost.salaryTo);
-    //form.reset();
+    form.reset();
   }
 }

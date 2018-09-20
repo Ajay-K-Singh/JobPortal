@@ -14,11 +14,19 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   didSignUp: boolean = false;
   private didSignUpSub: Subscription;
   mode: string;
-  constructor(public authenticationService: AuthenticationService ) { }
+  userIsAuthenticated = false;
+  private authenticationSub: Subscription;
+  constructor(public authenticationService: AuthenticationService ) { 
+  }
   
   ngOnInit() {
     this.setLoadingSubs();
     this.setDidSignUpSubscription();
+    this.userIsAuthenticated = this.authenticationService.getAuth();
+    this.authenticationSub = this.authenticationService.getAuthenticationStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+      });
   }
 
   setLoadingSubs() {
