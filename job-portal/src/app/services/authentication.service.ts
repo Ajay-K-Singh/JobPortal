@@ -82,6 +82,7 @@ export class AuthenticationService {
   }
   
   validateSession() {
+    this.setLoadingListener(true);
     this.http.get('http://localhost:3000/validate-session')
       .subscribe(data => {
         if ((<any>data).user.isAuthenticated) {
@@ -90,10 +91,12 @@ export class AuthenticationService {
           this.setUserInfo((<any>data).user.user);
           this.setAuthenticationTimer(expiresInDuration);
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.SaveAuthenticationData((<any>data).user.token, expirationDate);
+          this.saveAuthenticationData((<any>data).user.token, expirationDate);
+          this.setLoadingListener(false);
           this.autoAuthenticateUser(this.getAuthenticationData());
         } else {
-          this.ClearAuthenticationData();
+          this.clearAuthenticationData();
+          this.setLoadingListener(false);
         }
       });
   }
@@ -144,11 +147,10 @@ export class AuthenticationService {
       if (token) {
         const expiresInDuration = response.expiresIn;
         this.setAuthenticationTimer(expiresInDuration);
-        this.setAuthenticationListener(true);
         this.setLoadingListener(false);
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-        this.SaveAuthenticationData(token, expirationDate);
+        this.saveAuthenticationData(token, expirationDate);
         this.validateSession();
       }
     }, error => {
@@ -167,15 +169,15 @@ export class AuthenticationService {
     this.setLoadingListener(true);
     this.http.get('http://localhost:3000/logout')
       .subscribe(data => {
-        this.ClearAuthenticationData();
+        this.clearAuthenticationData();
         this.setAuthenticationListener(false);
         clearTimeout(this.tokenTimer);
-        this.ClearAuthenticationData();
+        this.clearAuthenticationData();
         this.resetUserInfo();
         this.setLoadingListener(false);
         this.mode = '';
         this.modeListener.next(this.mode);
-        this.navigateTo('home');
+        window.location.replace('/');
     });
 
   }
@@ -269,12 +271,12 @@ export class AuthenticationService {
     this.isLoadingListener.next(isLoading);
   }
 
-  private SaveAuthenticationData(token: string, expiration: Date) {
+  private saveAuthenticationData(token: string, expiration: Date) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expiration.toISOString());
   }
 
-  private ClearAuthenticationData() {
+  private clearAuthenticationData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('loggedInAs');

@@ -32,6 +32,12 @@ a {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
+    position: relative;
+    top: -0.2rem;
+}
+
+.user-info:focus {
+    outline: 0 !important;
 }
 
 mat-list {
@@ -69,15 +75,28 @@ mat-list-item {
     border-top: 10px solid white;
 }
 
+button:active {
+    outline: none;
+    border: none;
+}
+
+button:focus {
+    outline: 0 !important;
+}
+
 img {
     position: relative;
-    top: 0.6rem;
+    top: 0.7rem;
 }
 
 ::ng-deep .mat-menu-panel {
     position: relative;
     top: 1rem;
     left: -1rem;
+}
+
+ng-template {
+    bottom: rem;
 }
 
 .logout {

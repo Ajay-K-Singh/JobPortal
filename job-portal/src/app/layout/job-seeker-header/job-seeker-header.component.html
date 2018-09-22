@@ -1,6 +1,6 @@
 <mat-toolbar color="accent">
     <span>
-		<a routerLink="/jobs" class="header">Jobs</a>
+		<a routerLink="/job-seeker/jobs" class="header">Jobs</a>
 	</span>
     <span class="spacer"></span>
     <mat-list>
@@ -9,8 +9,11 @@
         </mat-list-item>
         <mat-list-item *ngIf="userIsAuthenticated">
             <span class="user-info" routerLink="/job-seeker/profile">
-            <img mat-list-avatar [src]="user.image" alt="Desc 1">
-            <p class="user-name">{{user.firstName}}</p>
+              <img mat-list-avatar *ngIf="user.image; else defaultImage" [src]="user.image" alt="Desc 1">              <ng-template #defaultImage>
+                  <img mat-list-avatar src="../../../assets/images/defaultProfile.jpg">
+                </ng-template>
+              <p class="user-name" *ngIf="user.firstName; else nameBlock">{{user.firstName}}</p>
+              <ng-template #nameBlock><p class="user-name">Ajay</p></ng-template>
           </span>
             <button [matMenuTriggerFor]="menu" class="user-button">
             <div class="arrow-left"></div>

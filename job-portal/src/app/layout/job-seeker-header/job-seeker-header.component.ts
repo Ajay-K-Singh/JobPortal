@@ -16,19 +16,7 @@ export class JobSeekerHeaderComponent implements OnInit, OnDestroy {
   constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.userIsAuthenticated = this.authenticationService.getAuth();
-    this.authenticationSub = this.authenticationService.getAuthenticationStatusListener()
-      .subscribe(isAuthenticated => {
-        this.userIsAuthenticated = isAuthenticated;
-      });
-    this.user = this.authenticationService.getUserInfo();
-    this.userInfoSub = this.authenticationService.getUserInfoListener()
-    .subscribe(user => {
-      this.user = user;
-      if (this.user.image === undefined) {
-        this.user.image = "../../../assets/images/defaultProfile.jpg";
-      }
-    });
+    this.setUserAuthicationInfo();
   }
 
   onLogOut() {
@@ -39,6 +27,29 @@ export class JobSeekerHeaderComponent implements OnInit, OnDestroy {
     if (this.authenticationSub) {
       this.authenticationSub.unsubscribe();
     }
+    if (this.userInfoSub) {
+      this.userInfoSub.unsubscribe();
+    }
   }
 
+  setUserIsAuthicated() {
+    this.userIsAuthenticated = this.authenticationService.getAuth();
+    this.authenticationSub = this.authenticationService.getAuthenticationStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+      });
+  }
+
+  setUserInfo() {
+    this.user = this.authenticationService.getUserInfo();
+    this.userInfoSub = this.authenticationService.getUserInfoListener()
+    .subscribe(user => {
+      this.user = user;
+    });
+  }
+
+  setUserAuthicationInfo() {
+    this.setUserIsAuthicated();
+    this.setUserInfo();
+  }
 }

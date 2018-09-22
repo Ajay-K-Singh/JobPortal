@@ -1,8 +1,5 @@
-ul li {
-    list-style: none;
-    text-decoration: none;
-    padding: 0;
-    margin: 0;
+mat-toolbar {
+    width: 100%;
 }
 
 a {
@@ -20,10 +17,88 @@ a {
 
 .mat-list {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 }
 
-.userName {
+.user-name {
     color: white;
-    margin-left: 1rem;
+}
+
+::ng-deep mat-list-item-focus {
+    display: none;
+}
+
+.user-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    position: relative;
+    top: -0.2rem;
+}
+
+.user-info:focus {
+    outline: 0 !important;
+}
+
+mat-list {
+    width: 25%;
+    position: relative;
+    bottom: 0.3rem;
+}
+
+mat-list-item {
+    position: relative;
+    top: 0.3rem;
+}
+
+.user-button {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+::ng-deep .mat-button-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr 4fr;
+    position: relative;
+    bottom: 0.2rem;
+}
+
+.arrow-left {
+    width: 0;
+    height: 0;
+    position: relative;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+}
+
+button:active {
+    outline: none;
+    border: none;
+}
+
+button:focus {
+    outline: 0 !important;
+}
+
+img {
+    position: relative;
+    top: 0.7rem;
+}
+
+::ng-deep .mat-menu-panel {
+    position: relative;
+    top: 1rem;
+    left: -1rem;
+}
+
+ng-template {
+    bottom: rem;
+}
+
+.logout {
+    color: black !important;
 }

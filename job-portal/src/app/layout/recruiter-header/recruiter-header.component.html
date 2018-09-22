@@ -7,12 +7,25 @@
         <mat-list-item>
             <a mat-button routerLink="/recruiter/post-job" routerLinkActive="mat-accent">Post Job</a>
         </mat-list-item>
-        <mat-list-item>
-            <a mat-button (click)="onLogOut()" routerLinkActive="mat-warning">Log Out </a>
-        </mat-list-item>
         <mat-list-item *ngIf="userIsAuthenticated">
-            <img mat-list-avatar [src]="user.image" alt="Desc 1">
-            <p class="userName">{{user.firstName}}</p>
+            <span class="user-info" routerLink="/recruiter/profile">
+              <img mat-list-avatar *ngIf="user.image; else defaultImage" [src]="user.image" alt="Desc 1">
+              <ng-template #defaultImage>
+                <img mat-list-avatar src="../../../assets/images/defaultProfile.jpg">
+              </ng-template>
+              <p class="user-name" *ngIf="user.firstName; else nameBlock">{{user.firstName}}</p>
+              <ng-template #nameBlock><p class="user-name">Ajay</p></ng-template>
+          </span>
+            <button [matMenuTriggerFor]="menu" class="user-button">
+            <div class="arrow-left"></div>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <a (click)="onLogOut()" routerLinkActive="mat-accent" class="logout">
+                    Log Out 
+                  </a>
+                </button>
+            </mat-menu>
         </mat-list-item>
     </mat-list>
 </mat-toolbar>

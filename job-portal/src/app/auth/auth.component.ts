@@ -20,8 +20,14 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   }
   
   ngOnInit() {
+    this.setIsUserAuthenticated();
     this.setLoadingSubs();
-    this.setDidSignUpSubscription();
+    if (this.userIsAuthenticated) {
+      this.setDidSignUpSubscription();
+    }
+  }
+
+  setIsUserAuthenticated() {
     this.userIsAuthenticated = this.authenticationService.getAuth();
     this.authenticationSub = this.authenticationService.getAuthenticationStatusListener()
       .subscribe(isAuthenticated => {

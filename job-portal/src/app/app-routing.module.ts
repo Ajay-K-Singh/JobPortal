@@ -11,6 +11,7 @@ import { JobSeekerListingsComponent } from './job-seeker/jobseeker-listings/jobs
 import { AuthorizationComponent } from './auth/auth.component';
 import { AuthenticationGuard } from './services/auth.guard';
 import { SeekerProfile } from './job-seeker/profile/seeker.profile';
+import { RecruiterProfile } from './recruiter/profile/recruiter-profile.component';
 
 const routes: Routes = [
     {
@@ -21,7 +22,7 @@ const routes: Routes = [
         path: 'job-seeker',
         component: JobSeekerLayoutComponent,
         children: [{
-            path: '',
+            path: 'jobs',
             component: JobSeekerListingsComponent
         },
         {
@@ -44,6 +45,10 @@ const routes: Routes = [
           path: 'post-job',
           component: PostJobsComponent,
           canActivate: [AuthenticationGuard]
+        },
+        {
+          path: 'profile',
+          component: RecruiterProfile
         }
       ]
     }

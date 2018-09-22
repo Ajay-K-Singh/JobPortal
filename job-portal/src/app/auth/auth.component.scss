@@ -5,7 +5,7 @@ mat-card {
     position: relative;
     top: 8rem;
     float: right;
-    background-color: whitesmoke;
+    background-color: wheat;
     border-radius: 15px;
 }
 
@@ -50,20 +50,26 @@ mat-form-field {
 }
 
 .recruiter-button {
-    height: 100px;
+    height: 70px;
     font-size: 22px;
-    width: 300px;
-    border-radius: 10px;
-    border: none;
-    color: honeydew;
-    background-color: #311B92;
-    color: white;
+    width: 200px;
+}
+
+button {
+    text-align: center;
 }
 
 .recruiter {
-    margin-left: 20%;
     position: relative;
     top: 30%;
+    left: 10%;
+    text-align: center;
+}
+
+.jobseeker {
+    position: relative;
+    top: 30%;
+    text-align: center;
 }
 
 .recruiter-button:hover,
@@ -82,25 +88,22 @@ mat-form-field {
 
 .jobseeker-button {
     font-size: 22px;
-    height: 100px;
-    width: 300px;
-    border: none;
-    border-radius: 10px;
-    color: honeydew;
-    color: aliceblue;
-    background-color: #311B92;
+    height: 70px;
+    width: 200px;
 }
 
 .job-seeker {
-    margin-left: 18%;
     position: relative;
+    left: 10%;
     top: 30%;
+    text-align: center;
 }
 
 .active {
     background-color: #1DE9B6;
     color: #E65100;
     z-index: 100;
+    text-align: center;
 }
 
 mat-spinner {
@@ -121,4 +124,13 @@ mat-spinner {
     bottom: 0;
     background-color: rgba(255, 255, 255, 0.7);
     z-index: 9999;
+}
+
+h3 {
+    position: absolute;
+    top: 9rem;
+    font-size: 70px;
+    left: 11rem;
+    color: dimgray;
+    font-family: "Times New Roman", Times, serif;
 }
