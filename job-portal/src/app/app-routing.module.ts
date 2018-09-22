@@ -22,7 +22,7 @@ const routes: Routes = [
         path: 'job-seeker',
         component: JobSeekerLayoutComponent,
         children: [{
-            path: 'jobs',
+            path: '',
             component: JobSeekerListingsComponent
         },
         {

@@ -102,7 +102,7 @@ export class AuthenticationService {
   }
 
 
-  createUser(email: string, password: string) {
+  createUser(firstName: string, lastName: string, email: string, password: string) {
     this.setLoadingListener(true);
     const modeValid = this.validateMode();
     if (!modeValid) {
@@ -110,6 +110,8 @@ export class AuthenticationService {
       return;
     }
     const userData: AuthModel = { 
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: password
     }
@@ -136,7 +138,7 @@ export class AuthenticationService {
       this.setLoadingListener(false);
       return;
     }
-    const userData: AuthModel = { 
+    const userData = { 
       email: email,
       password: password
     }

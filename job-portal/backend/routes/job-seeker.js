@@ -9,6 +9,8 @@ router.post("/signup", (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
           const jobSeeker = new JobSeeker({
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
               email: req.body.email,
               password: hash
           });
@@ -44,7 +46,13 @@ router.post("/login", (req, res, next) => {
                 hasSignedUp: false
             });
         }
-        config.user = user;
+        let userInfo = {};
+        Object.keys(user._doc).forEach(key => {
+          if (key !== 'password') {
+            userInfo[key] = user[key];
+          }
+        });
+        config.user = userInfo;
         return bcrypt.compare(req.body.password, user.password)
       })
       .then(result => {

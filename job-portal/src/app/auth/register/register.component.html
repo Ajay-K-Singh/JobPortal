@@ -1,6 +1,22 @@
 <mat-card>
     <mat-card-content>
         <form [formGroup]="registerForm" (ngSubmit)="onSignupClick()" autocomplete="off">
+            <div class="name">
+                <mat-form-field appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <input matInput type="text" placeholder="First Name" name="firstName" formControlName="firstName" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="registerForm.hasError('required', 'firstName')">
+                        Please enter your first name
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput type="text" placeholder="Last Name" name="lastName" formControlName="lastName" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="registerForm.hasError('required', 'lastName')">
+                        Please enter your last name
+                    </mat-error>
+                </mat-form-field>
+            </div>
             <mat-form-field appearance="outline">
                 <mat-label>Email/User Name</mat-label>
                 <input matInput type="email" placeholder="Email/User Name" name="emailOrUserName" formControlName="emailOrUserName" [errorStateMatcher]="matcher">
@@ -27,9 +43,5 @@
             </mat-form-field>
             <button mat-stroked-button type="submit" color="primary" class="signup-button">Sign Up</button>
         </form>
-        <div class="separator"></div>
-        <mat-card-footer>
-            <social-buttons></social-buttons>
-        </mat-card-footer>
     </mat-card-content>
 </mat-card>

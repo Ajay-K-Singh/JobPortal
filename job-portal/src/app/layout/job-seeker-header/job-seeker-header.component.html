@@ -1,19 +1,21 @@
 <mat-toolbar color="accent">
     <span>
-		<a routerLink="/job-seeker/jobs" class="header">Jobs</a>
+		<a routerLink="/job-seeker" class="header">Jobs</a>
 	</span>
     <span class="spacer"></span>
     <mat-list>
-        <mat-list-item class="button-search">
-            <a routerLink="/job-seeker/search-job" routerLinkActive="mat-primary">Search Job</a>
+        <mat-list-item class="job-search-button">
+            <a routerLink="/job-seeker/search-job" routerLinkActive="job-search-active">Search Job</a>
         </mat-list-item>
         <mat-list-item *ngIf="userIsAuthenticated">
-            <span class="user-info" routerLink="/job-seeker/profile">
-              <img mat-list-avatar *ngIf="user.image; else defaultImage" [src]="user.image" alt="Desc 1">              <ng-template #defaultImage>
+            <span class="user-profile" routerLinkActive="user-profile-active" routerLink="/job-seeker/profile">
+              <div class="user-info">
+                <img mat-list-avatar *ngIf="user.image; else defaultImage" [src]="user.image" alt="Desc 1">              
+                <ng-template #defaultImage>
                   <img mat-list-avatar src="../../../assets/images/defaultProfile.jpg">
                 </ng-template>
-              <p class="user-name" *ngIf="user.firstName; else nameBlock">{{user.firstName}}</p>
-              <ng-template #nameBlock><p class="user-name">Ajay</p></ng-template>
+                  <p class="user-name">{{user.firstName}}</p>
+              </div>
           </span>
             <button [matMenuTriggerFor]="menu" class="user-button">
             <div class="arrow-left"></div>

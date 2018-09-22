@@ -22,9 +22,7 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setIsUserAuthenticated();
     this.setLoadingSubs();
-    if (this.userIsAuthenticated) {
-      this.setDidSignUpSubscription();
-    }
+    this.setDidSignUpSubscription();
   }
 
   setIsUserAuthenticated() {
@@ -69,9 +67,11 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   }
 
   private onSignUpRequest(event) {
+    const firstName = event.value.firstName;
+    const lastName = event.value.lastName;
     const email = event.value.emailOrUserName;
     const password = event.value.password;
-    this.authenticationService.createUser(email, password);
+    this.authenticationService.createUser(firstName, lastName,email, password);
   }
 
   ngOnDestroy() {

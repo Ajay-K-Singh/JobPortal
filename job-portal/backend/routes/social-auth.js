@@ -16,6 +16,6 @@ router.get('/google/callback',
     config.loggedInTime = new Date();
     config.userID = req.user.user._id;
     res.redirect("http://localhost:4200");
-  });
+  })
 
 module.exports = router;

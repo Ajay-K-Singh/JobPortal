@@ -1,14 +1,16 @@
 <div class="icon-buttons">
-    <a mat-stroked-button color="primary" [class.isDisabled]="modeSelected == '' || modeSelected == undefined" href="http://localhost:3000/auth/google" class="icon-button">
-        <svg-icon src="../../assets/icons/google.svg" [svgStyle]="{ 'height.rem':3, 'margin-left.rem': -1.2, 'position': 'relative', 'top.px': 5 }"></svg-icon>
-    </a>
-    <a mat-stroked-button color="primary" class="icon-button" [class.isDisabled]="modeSelected == '' || modeSelected == undefined">
-        <svg-icon src="../../assets/icons/facebook.svg" [svgStyle]="{ 'height.rem':3, 'margin-left.rem': -1.2, 'position': 'relative', 'top.px': 5 }"></svg-icon>
-    </a>
-    <a mat-stroked-button color="primary" [class.isDisabled]="modeSelected == '' || modeSelected == undefined" class="icon-button">
-        <svg-icon src="../../assets/icons/linkedin.svg" [svgStyle]="{ 'height.rem':3, 'margin-left.rem': -1.2, 'position': 'relative', 'top.px': 5 }"></svg-icon>
-    </a>
-    <a mat-stroked-button color="primary" [class.isDisabled]="modeSelected == '' || modeSelected == undefined" class="icon-button">
-        <svg-icon src="../../assets/icons/github.svg" [svgStyle]="{ 'height.rem':3, 'margin-left.rem': -1.2, 'position': 'relative', 'top.px': 5 }"></svg-icon>
-    </a>
+    <mat-card class="icon-button google" [class.isDisabled]="modeSelected == '' || modeSelected == undefined">
+        <a href="http://localhost:3000/auth/google">
+            <svg-icon src="../../assets/icons/google.svg" [class.enabled]="modeSelected" [svgStyle]="{ 'height.rem':3, 'width.rem':3, 'position': 'relative', 'top.px':  -10, 'left.rem': -0.5 }"></svg-icon>
+        </a>
+    </mat-card>
+    <mat-card class="icon-button facebook" [class.isDisabled]="modeSelected == '' || modeSelected == undefined">
+        <svg-icon src="../../assets/icons/facebook.svg" [class.enabled]="modeSelected" [svgStyle]="{ 'height.rem':3, 'width.rem':3, 'position': 'relative', 'top.px': -10, 'left.rem': -0.8 }"></svg-icon>
+    </mat-card>
+    <mat-card class="icon-button linkedin" [class.isDisabled]="modeSelected == '' || modeSelected == undefined">
+        <svg-icon src="../../assets/icons/linkedin.svg" [class.enabled]="modeSelected" [svgStyle]="{ 'height.rem':3, 'width.rem':3, 'position': 'relative', 'top.px': -10, 'left.rem': -0.5 }"></svg-icon>
+    </mat-card>
+    <mat-card class="icon-button github" [class.isDisabled]="modeSelected == '' || modeSelected == undefined">
+        <svg-icon src="../../assets/icons/github.svg" [class.enabled]="modeSelected" [svgStyle]="{ 'height.rem':3, 'width.rem':3, 'position': 'relative', 'top.px': -10, 'left.rem': -0.5 }"></svg-icon>
+    </mat-card>
 </div>

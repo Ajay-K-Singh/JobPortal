@@ -21,7 +21,12 @@ a {
 }
 
 .user-name {
+    position: relative;
+    margin: 0 auto;
     color: white;
+    height: 60%;
+    left: -0.2rem;
+    top: 1rem;
 }
 
 ::ng-deep mat-list-item-focus {
@@ -31,13 +36,37 @@ a {
 .user-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
     position: relative;
     top: -0.2rem;
+    height: 55px;
+    width: 100%;
 }
 
 .user-info:focus {
     outline: 0 !important;
+}
+
+.user-profile {
+    height: 50px;
+    position: relative;
+    width: 70%;
+    top: -0.2rem;
+    border-radius: 1px;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.user-profile:focus {
+    outline: 0 !important;
+}
+
+.user-profile-active {
+    border-radius: 10px;
+    background-color: #8C9EFF;
+    color: black;
 }
 
 mat-list {
@@ -67,6 +96,8 @@ mat-list-item {
 }
 
 .arrow-left {
+    position: relative;
+    left: 1rem;
     width: 0;
     height: 0;
     position: relative;
@@ -86,13 +117,13 @@ button:focus {
 
 img {
     position: relative;
-    top: 0.7rem;
+    margin: 0 auto;
+    top: 0.6rem;
 }
 
 ::ng-deep .mat-menu-panel {
     position: relative;
     top: 1rem;
-    left: -1rem;
 }
 
 ng-template {
@@ -101,4 +132,22 @@ ng-template {
 
 .logout {
     color: black !important;
+}
+
+.job-search-button {
+    width: 80%;
+    text-align: center;
+    position: relative;
+    left: 4rem;
+    top: 0.5rem;
+}
+
+.job-search-active {
+    border-radius: 10px;
+    background-color: #8C9EFF;
+    width: 100px;
+}
+
+::ng-deep .mat-button-wrapper {
+    top: 0 !important;
 }

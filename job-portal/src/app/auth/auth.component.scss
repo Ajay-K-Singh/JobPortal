@@ -7,6 +7,18 @@ mat-card {
     float: right;
     background-color: wheat;
     border-radius: 15px;
+    animation: yourAnimation 1s forwards 0s ease-in;
+}
+
+@keyframes yourAnimation {
+    0% {
+        transform: translateX(100%);
+        opacity: 0.1;
+    }
+    100% {
+        transform: rotate(xx);
+        opacity: 1;
+    }
 }
 
 mat-form-field {
@@ -31,6 +43,7 @@ mat-form-field {
     grid-template-columns: 1fr 1fr;
     position: relative;
     top: 20rem;
+    animation: fadeIn 1s forwards 0s ease-in;
 }
 
 ::ng-deep .mat-tab-labels {
@@ -133,4 +146,15 @@ h3 {
     left: 11rem;
     color: dimgray;
     font-family: "Times New Roman", Times, serif;
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0.1;
+    }
+    100% {
+        transform: rotate(xx);
+        opacity: 1;
+    }
 }
