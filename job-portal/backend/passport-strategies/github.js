@@ -18,7 +18,6 @@ module.exports = function(passport) {
           profileUrl: profile._json.url,
           image: profile._json.avatar_url
       };
-      console.log(newUser);
       User.findOne({
         id: profile._json.id
       })
