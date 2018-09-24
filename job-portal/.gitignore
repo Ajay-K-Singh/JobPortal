@@ -42,3 +42,4 @@ Thumbs.db
 #backend files
 backend/config/keys
 job-portal/backend/config/keys
+backend/config/keys.js
