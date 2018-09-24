@@ -38,7 +38,7 @@ export class JobPostingService {
       const requestPath = localStorage.getItem('loggedInAs');
       this.http.post<{ id: string, jobTitle: string, nameOfCOmpany: object, experienceFrom: number,
         experienceTo: number, location: string, keySkills: object, jobDescription: string,
-        salaryFrom: number, salaryTo: number}>(`http://localhost:3000/api/${requestPath}/post-job`, postJob)
+        salaryFrom: number, salaryTo: number}>(`https://localhost:3000/api/${requestPath}/post-job`, postJob)
         .subscribe((response) => {
             const id = (<any>response).jobPost._id;
 						postJob.id = id;
@@ -50,7 +50,7 @@ export class JobPostingService {
   
   getJobPosts() {
     const requestPath = localStorage.getItem('loggedInAs');
-    this.http.get<{ jobPosts: any }>(`http://localhost:3000/api/${requestPath}/job-posts`)
+    this.http.get<{ jobPosts: any }>(`https://localhost:3000/api/${requestPath}/job-posts`)
       .pipe(map((response) => {
         return response.jobPosts.map((res) => {
           return {
@@ -78,7 +78,7 @@ export class JobPostingService {
   }
 
   deleteJobPost(jobPostId: string) {
-    this.http.delete("http://localhost:3000/api/recruiter/job-posts/" + jobPostId)
+    this.http.delete("https://localhost:3000/api/recruiter/job-posts/" + jobPostId)
       .subscribe(() => {
         const updatedJobPosts = this.jobPosts.filter(jobPost => jobPost.id !== jobPostId)
         this.jobPosts = updatedJobPosts;

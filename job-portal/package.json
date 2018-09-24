@@ -9,7 +9,7 @@
         "serve": "ng serve --proxy-config proxy.conf.json",
         "build": "ng build --output-path=public",
         "start": "npm run build & concurrently --kill-others \"npm run serve-api\" \"npm run serve\"",
-        "serve-api": "nodemon server.js"
+        "serve-api": "set HTTPS=true && nodemon server.js"
     },
     "private": true,
     "dependencies": {
@@ -39,7 +39,9 @@
         "mongoose-unique-validator": "^2.0.1",
         "passport": "^0.4.0",
         "passport-facebook": "^2.1.1",
+        "passport-github": "^1.1.0",
         "passport-google-oauth": "^1.0.0",
+        "passport-linkedin-oauth2": "^1.5.0",
         "passport-local": "^1.0.0",
         "rxjs": "^6.0.0",
         "zone.js": "^0.8.26"

@@ -14,7 +14,12 @@ const app = express();
 app.use(passport.initialize());
 
 require('./passport-strategies/google')(passport);
+require('./passport-strategies/facebook')(passport);
+require('./passport-strategies/linkedin')(passport);
+require('./passport-strategies/github')(passport);
+
 app.set('config', config);
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(

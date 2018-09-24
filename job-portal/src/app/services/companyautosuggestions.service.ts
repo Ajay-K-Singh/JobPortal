@@ -14,7 +14,7 @@ export class CompanyAutoSuggestionService {
   constructor(private http: HttpClient){}
   
   suggestCompanies(nameOfCompany: string) {
-    this.http.get<{ companies: any }>('http://localhost:3000/api/suggest-companies', 
+    this.http.get<{ companies: any }>('https://localhost:3000/api/suggest-companies', 
     {params: {nameOfCompany: nameOfCompany}})
       .pipe(map((response: any[]) => {
         return response.map((res) => {

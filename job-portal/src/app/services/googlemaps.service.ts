@@ -12,7 +12,7 @@ export class GoogleMapsService {
   private suggestedLocationsResponse = new Subject<Places[]>();
   constructor(private http: HttpClient){}
   suggestPlaces(location: string) {
-    this.http.get<{ predictions: any }>('http://localhost:3000/api/google-places', 
+    this.http.get<{ predictions: any }>('https://localhost:3000/api/google-places', 
     {params: {location: location}})
       .pipe(map((response) => {
         return response.predictions.map((res) => {

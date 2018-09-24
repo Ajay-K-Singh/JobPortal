@@ -1,8 +1,15 @@
 const app = require("./backend/app");
 const debug = require("debug")("node-angular");
 const http = require("http");
+const https = require('https');
 const path = require('path');
 const express = require("express");
+var fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('./client-key.pem'),
+  cert: fs.readFileSync('./client-cert.pem')
+};
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -50,7 +57,7 @@ const onListening = () => {
 const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
-const server = http.createServer(app);
+const server = https.createServer(options, app);
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);

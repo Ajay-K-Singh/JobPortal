@@ -4,9 +4,9 @@ const keys = require('../config/keys');
 
 module.exports = function(passport) {
   passport.use(new GoogleStrategy({
-    clientID: keys.clientID,
-    clientSecret: keys.clientSecret,
-    callbackURL: keys.callbackURL,
+    clientID: keys.google.clientID,
+    clientSecret: keys.google.clientSecret,
+    callbackURL: keys.google.callbackURL,
     proxy: true
   }, (accessToken, refreshToken, profile, done) => {
         const image = profile.photos[0].value.substring(0, profile.photos[0].value.indexOf('?'));

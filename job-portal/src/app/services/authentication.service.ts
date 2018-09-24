@@ -83,7 +83,7 @@ export class AuthenticationService {
   
   validateSession() {
     this.setLoadingListener(true);
-    this.http.get('http://localhost:3000/validate-session')
+    this.http.get('https://localhost:3000/validate-session')
       .subscribe(data => {
         if ((<any>data).user.isAuthenticated) {
           const expiresInDuration = (<any>data).user.expiresIn;
@@ -116,7 +116,7 @@ export class AuthenticationService {
       password: password
     }
     const requestPath = this.mode;
-    this.http.post(`http://localhost:3000/api/${requestPath}/signup`, userData)
+    this.http.post(`https://localhost:3000/api/${requestPath}/signup`, userData)
       .subscribe(response => {
         this.setMessageObject((<any>response).message, 'success');
         this.setSignUpListener(true);
@@ -143,7 +143,7 @@ export class AuthenticationService {
       password: password
     }
     const requestPath = this.mode;
-    this.http.post<{token: string, expiresIn: number}>(`http://localhost:3000/api/${requestPath}/login`, userData)
+    this.http.post<{token: string, expiresIn: number}>(`https://localhost:3000/api/${requestPath}/login`, userData)
     .subscribe(response => {
       const token = (<any>response).config.token;
       if (token) {
@@ -169,7 +169,7 @@ export class AuthenticationService {
 
   logOut() {
     this.setLoadingListener(true);
-    this.http.get('http://localhost:3000/logout')
+    this.http.get('https://localhost:3000/logout')
       .subscribe(data => {
         this.clearAuthenticationData();
         this.setAuthenticationListener(false);

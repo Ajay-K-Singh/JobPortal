@@ -14,7 +14,7 @@ export class SkillsOpenApiService {
   constructor(private http: HttpClient) { }
 
   suggestSkills (skill: string) {
-    this.http.get<{ skills: any }>('http://localhost:3000/api/suggest-skills', 
+    this.http.get<{ skills: any }>('https://localhost:3000/api/suggest-skills', 
     {params: {skill: skill}})
       .pipe(map((response: any[]) => {
         return response.map((res) => {
