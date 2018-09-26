@@ -12,6 +12,7 @@ import { AuthorizationComponent } from './auth/auth.component';
 import { AuthenticationGuard } from './services/auth.guard';
 import { SeekerProfile } from './job-seeker/profile/seeker.profile';
 import { RecruiterProfile } from './recruiter/profile/recruiter-profile.component';
+import { ErrorComponent } from './error-route/error.component';
 
 const routes: Routes = [
     {
@@ -51,6 +52,10 @@ const routes: Routes = [
           component: RecruiterProfile
         }
       ]
+    },
+    {
+      path: 'unauthorized',
+      component:  ErrorComponent,
     }
 ];
 @NgModule({

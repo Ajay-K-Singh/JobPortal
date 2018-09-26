@@ -43,3 +43,7 @@ Thumbs.db
 backend/config/keys
 job-portal/backend/config/keys
 backend/config/keys.js
+
+#certificates
+client-cert.pem
+client-key.pem

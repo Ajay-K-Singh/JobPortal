@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { AuthModel } from '../models/authorization.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '../../../node_modules/@angular/router';
 import { UserModel } from '../models/user.model';
-
+import { filter } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,6 +31,7 @@ export class AuthenticationService {
   previousUrl: string;
 
   constructor(private http: HttpClient, private router: Router) {
+    this.watchRouteChange();
     this.validateSession();
   }
 
@@ -80,10 +81,23 @@ export class AuthenticationService {
   getUserInfoListener() {
     return this.userInfoListener.asObservable();
   }
+
+  watchRouteChange() {
+    this.router.events.pipe(
+      filter((event:Event) => event instanceof NavigationStart)
+    ).subscribe(data => {
+      this.validateSession();
+    })
+  }
+
+  loadHomePage() {
+    this.navigateTo(localStorage.getItem('loggedInAs'));
+  }
   
   validateSession() {
+    this.checkRouteAuthorization();
     this.setLoadingListener(true);
-    this.http.get('https://localhost:3000/validate-session')
+    this.http.get('https://localhost:3000/api/validate-session')
       .subscribe(data => {
         if ((<any>data).user.isAuthenticated) {
           const expiresInDuration = (<any>data).user.expiresIn;
@@ -99,6 +113,13 @@ export class AuthenticationService {
           this.setLoadingListener(false);
         }
       });
+  }
+
+  checkRouteAuthorization() {
+    if (this.router.url !== '/' && this.router.url.split('/')[1] !== localStorage.getItem('loggedInAs')) {
+      this.logOut();
+      return;
+    }
   }
 
 
@@ -174,7 +195,6 @@ export class AuthenticationService {
         this.clearAuthenticationData();
         this.setAuthenticationListener(false);
         clearTimeout(this.tokenTimer);
-        this.clearAuthenticationData();
         this.resetUserInfo();
         this.setLoadingListener(false);
         this.mode = '';
@@ -186,7 +206,7 @@ export class AuthenticationService {
 
   autoAuthenticateUser(authenticationInfo) {
     if (!authenticationInfo && !this.mode) {
-      this.router.navigate(['/']);
+      this.navigateTo('home');
       return;
     }
     if (authenticationInfo && authenticationInfo.token) {
@@ -195,10 +215,9 @@ export class AuthenticationService {
       if (expiresIn > 0) {
       this.token = authenticationInfo.token;
       this.setAuthenticationTimer(expiresIn/1000);
-      this.setAuthenticationListener(true);
-      if (this.isAuthenticated) {
-        this.navigateTo(localStorage.getItem('loggedInAs'));
-        }
+      if (!this.isAuthenticated) {
+        this.setAuthenticationListener(true);
+      }
       }
     }
   }

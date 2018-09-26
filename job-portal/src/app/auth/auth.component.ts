@@ -30,6 +30,9 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
     this.authenticationSub = this.authenticationService.getAuthenticationStatusListener()
       .subscribe(isAuthenticated => {
         this.userIsAuthenticated = isAuthenticated;
+        if (this.userIsAuthenticated) {
+          this.authenticationService.loadHomePage();
+        }
       });
   }
 

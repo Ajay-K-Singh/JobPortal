@@ -8,7 +8,8 @@ var fs = require('fs');
 
 const options = {
   key: fs.readFileSync('./client-key.pem'),
-  cert: fs.readFileSync('./client-cert.pem')
+  cert: fs.readFileSync('./client-cert.pem'),
+  passphrase: 'ajay'
 };
 
 app.use(express.static(path.join(__dirname, 'public')));

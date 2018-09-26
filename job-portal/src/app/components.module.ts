@@ -27,6 +27,7 @@ import { SocialButtonsComponent } from './common/social-login-buttons/social-but
 import { MessageComponent } from './messages/message.component';
 import { SeekerProfile } from './job-seeker/profile/seeker.profile';
 import { RecruiterProfile } from './recruiter/profile/recruiter-profile.component';
+import { ErrorComponent } from './error-route/error.component';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { RecruiterProfile } from './recruiter/profile/recruiter-profile.componen
     SocialButtonsComponent,
     MessageComponent,
     SeekerProfile,
-    RecruiterProfile
+    RecruiterProfile,
+    ErrorComponent
   ],
   exports: [
     JobSeekerComponent,
@@ -83,7 +85,8 @@ import { RecruiterProfile } from './recruiter/profile/recruiter-profile.componen
     SocialButtonsComponent,
     MessageComponent,
     SeekerProfile,
-    RecruiterProfile
+    RecruiterProfile,
+    ErrorComponent
   ]
 })
 export class ComponentsModule { }

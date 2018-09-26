@@ -11,6 +11,7 @@ const config = require('./config/config');
 const session = require("express-session");
 const app = express();
 
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 app.use(passport.initialize());
 
 require('./passport-strategies/google')(passport);
@@ -50,7 +51,8 @@ app.use(cookieParser());
 app.use(session({resave: true, saveUninitialized: true, secret: "Hell _This _is _the _session"}));
 
 app.get("/api/google-places", (req, res) => {
-  const key = 'AIzaSyA-HA9qMeaypI5YkDBfOJQi_wWFArXjxOg';
+  const key = 'AIzaSyB5JNs76KhLIYNEx6zkhXvcKRjadJX2TWc';
+  console.log(req.query.location);
   const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.query.location}&types=(cities)&language=pt_BR&key=${key}`
   axios.get(url).then(response => res.send(response.data)).catch(err => console.log(err));
 });
@@ -65,7 +67,7 @@ app.get("/api/suggest-skills", (req, res) => {
   axios.get(url).then(response => res.send(response.data)).catch(err => console.log(err));
 });
 
-app.get("/validate-session", (req, res) => {
+app.get("/api/validate-session", (req, res) => {
   const config = req.app.get('config');
   const now = new Date().getTime();
   if (config.isAuthenticated) {
