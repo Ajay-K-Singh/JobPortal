@@ -2,6 +2,7 @@ const express = require('express');
 const JobSeeker = require("../models/job-seeker");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const jwtKey = require('../config/keys').jwtKey;
 const router = express.Router();
 const JobPost = require('../models/job-posting');
 
@@ -65,7 +66,7 @@ router.post("/login", (req, res, next) => {
           const token = jwt.sign({
               email: config.user.email,
               userId: config.user._id
-          }, 'keep_it_secret', {
+          }, jwtKey.jwt, {
               expiresIn: "1h"
           });
           config.token = token;

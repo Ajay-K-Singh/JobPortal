@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const config = require('../config/config');
+const jwt = require('jsonwebtoken');
+const jwtKey = require('../config/keys').jwtKey;
+
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
@@ -35,8 +37,16 @@ router.get('/github/callback', passport.authenticate('github', { failureRedirect
   });
 
 function setConfiguration(req) {
+  const config = req.app.get('config');
+  const token = jwt.sign({
+    email: req.user.user.email,
+    userId: req.user.user._id,
+    token: req.user.token
+  }, jwtKey.jwt, {
+    expiresIn: "1h"
+  });
   config.user = req.user.user;
-  config.token = req.user.token;
+  config.token = token;
   config.isAuthenticated = true;
   config.loggedInTime = new Date();
   config.userID = req.user.user._id;

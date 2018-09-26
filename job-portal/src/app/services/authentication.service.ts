@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { AuthModel } from '../models/authorization.model';
 import { HttpClient } from '@angular/common/http';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '../../../node_modules/@angular/router';
 import { UserModel } from '../models/user.model';
-
+import { filter } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,6 +31,7 @@ export class AuthenticationService {
   previousUrl: string;
 
   constructor(private http: HttpClient, private router: Router) {
+    this.watchRouteChange();
     this.validateSession();
   }
 
@@ -80,10 +81,18 @@ export class AuthenticationService {
   getUserInfoListener() {
     return this.userInfoListener.asObservable();
   }
+
+  watchRouteChange() {
+    this.router.events.pipe(
+      filter((event:Event) => event instanceof NavigationStart)
+    ).subscribe(data => {
+      console.log(data);
+    })
+  }
   
   validateSession() {
     this.setLoadingListener(true);
-    this.http.get('https://localhost:3000/validate-session')
+    this.http.get('https://localhost:3000/api/validate-session')
       .subscribe(data => {
         if ((<any>data).user.isAuthenticated) {
           const expiresInDuration = (<any>data).user.expiresIn;
@@ -196,10 +205,13 @@ export class AuthenticationService {
       this.token = authenticationInfo.token;
       this.setAuthenticationTimer(expiresIn/1000);
       this.setAuthenticationListener(true);
-      if (this.isAuthenticated) {
+      if (this.isAuthenticated && !this.previousUrl) {
         this.navigateTo(localStorage.getItem('loggedInAs'));
-        }
       }
+      if (this.isAuthenticated && this.previousUrl) {
+        this.navigateTo(this.previousUrl);
+      }
+    }
     }
   }
 

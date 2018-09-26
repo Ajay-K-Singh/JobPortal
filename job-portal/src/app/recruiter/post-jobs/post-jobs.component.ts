@@ -3,6 +3,7 @@ import { PostJob } from '../../models/post-job.model';
 import { JobPostingService } from '../../services/job-posting.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { CustomErrorStateMatcher } from '../../material/error-state-matcher';
 
 @Component({
   selector: 'app-post-jobs',
@@ -12,6 +13,7 @@ import { Validators } from '@angular/forms';
 export class PostJobsComponent implements OnInit {
   postJob: PostJob;
   jobPostForm: FormGroup;
+  matcher = new CustomErrorStateMatcher();
   locationLabel = "Location";
   locationPlaceholder = "Location of the Job";
   nameOfCompanyLabel = "Name Of Copmany";
@@ -25,8 +27,8 @@ export class PostJobsComponent implements OnInit {
       'experienceFrom': new FormControl(null, Validators.required),
       'experienceTo': new FormControl(null, Validators.required),
       'jobDescription': new FormControl(null, Validators.required),
-      'salaryFrom': new FormControl(null, Validators.required),
-      'salaryTo': new FormControl(null, Validators.required)
+      'salaryFrom': new FormControl(null),
+      'salaryTo': new FormControl(null)
     });
   }
 

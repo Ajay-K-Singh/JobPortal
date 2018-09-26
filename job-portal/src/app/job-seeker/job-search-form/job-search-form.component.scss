@@ -25,3 +25,7 @@ mat-card {
     margin: 0 auto;
     width: 80%;
 }
+
+::ng-deep .mat-button-wrapper {
+    display: block;
+}

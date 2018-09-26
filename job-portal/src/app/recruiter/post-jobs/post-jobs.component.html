@@ -6,20 +6,18 @@
             <form [formGroup]="jobPostForm" (ngSubmit)="onSubmit()" autocomplete="off">
                 <mat-form-field appearance="outline">
                     <mat-label>Title Of Job</mat-label>
-                    <input matInput type="text" placeholder="Title Of Job" name="jobTitle" formControlName="jobTitle">
+                    <input matInput type="text" placeholder="Title Of Job" name="jobTitle" formControlName="jobTitle" [errorStateMatcher]="matcher">
                     <mat-error>Please enter a job title.</mat-error>
                 </mat-form-field>
                 <app-company-autosuggetion (formReady)="addFormControl('nameOfCompany', $event)" (onSelectedCompany)="setSelectedCompamy($event)" label="{{ nameOfCompanyLabel }}" placeholder="{{ nameOfCompanyLabel }}"></app-company-autosuggetion>
                 <mat-form-field appearance="outline">
                     <mat-label>Experience From (in years)</mat-label>
-                    <input matInput type="number" placeholder="Experience From (in years)" name="experienceFrom"
-                    formControlName="experienceFrom" size="2">
+                    <input matInput type="number" placeholder="Experience From (in years)" name="experienceFrom" formControlName="experienceFrom" size="2" [errorStateMatcher]="matcher">
                     <mat-error>Please enter experience.</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>Experience To (in years)</mat-label>
-                    <input matInput type="number" placeholder="Experience To (in years)" name="experienceTo"
-                    formControlName="experienceTo" size="2">
+                    <input matInput type="number" placeholder="Experience To (in years)" name="experienceTo" formControlName="experienceTo" size="2" [errorStateMatcher]="matcher">
                     <mat-error>Please enter experience.</mat-error>
                 </mat-form-field>
                 <app-autocomplete (formReady)="addFormControl('location', $event)" label="{{ locationLabel }}" placeholder="{{ locationPlaceholder }}"></app-autocomplete>
@@ -36,7 +34,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="job-description">
                     <mat-label>Job Description</mat-label>
-                    <textarea matInput placeholder="Job Description" rows="6" name="jobDescription" formControlName="jobDescription"></textarea>
+                    <textarea matInput placeholder="Job Description" rows="6" name="jobDescription" formControlName="jobDescription" [errorStateMatcher]="matcher"></textarea>
                     <mat-error>Please enter a job description.</mat-error>
                 </mat-form-field>
                 <mat-card-footer>
