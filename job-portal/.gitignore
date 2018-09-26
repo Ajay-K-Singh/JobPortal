@@ -46,4 +46,24 @@ backend/config/keys.js
 
 #certificates
 client-cert.pem
+<<<<<<< HEAD
 client-key.pem
+=======
+client-key.pem.gitignore
+backend/app.js
+backend/middlewares/ensure-authentication.js
+backend/middlewares/ensure-social-authentication.js
+backend/routes/job-seeker.js
+backend/routes/recruiter.js
+backend/routes/social-auth.js
+client-cert.pem
+client-key.pem
+client.csr
+server.js
+src/app/job-seeker/job-search-form/job-search-form.component.scss
+src/app/layout/recruiter-header/recruiter-header.component.scss
+src/app/recruiter/post-jobs/post-jobs.component.html
+src/app/recruiter/post-jobs/post-jobs.component.scss
+src/app/recruiter/post-jobs/post-jobs.component.ts
+src/app/services/authentication.service.ts
+>>>>>>> 5ba10bd736c1484ceb65437963bf30d9e3f3bcf8
